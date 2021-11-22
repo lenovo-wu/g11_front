@@ -1,16 +1,30 @@
 <template>
   <div>
-    <div class="box">🔔{{billboard}}</div>
+    <div class="box">🔔{{billboard.userName+",你好！"}}</div>
   </div>
 </template>
 
 <script>
-
+import{getBillboard} from '@/api/billboard'
 export default {
   name: 'Home',
   data(){
     return{
-      billboard:'这里以后可以传用户名'
+      billboard:{
+        userName:''
+      }
+    }
+  },
+  created(){
+    this.fetchBillboard()
+  },
+  methods:{
+    async fetchBillboard(){
+      getBillboard().then((value) => {
+        const { data } = value;
+        this.billboard = data
+      }
+      )
     }
   }
 }
