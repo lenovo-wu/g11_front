@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="box">🔔{{billboard.userName+",你好！"}}</div>
+    <el-button type="primary" class="admin" @click="inadmin">进入管理员界面</el-button>
   </div>
 </template>
 
@@ -11,7 +12,7 @@ export default {
   data(){
     return{
       billboard:{
-        userName:''
+        userName:'wlx'
       }
     }
   },
@@ -25,6 +26,9 @@ export default {
         this.billboard = data
       }
       )
+    },
+    inadmin(){
+      this.$router.push({path:'/Admin'})
     }
   }
 }
