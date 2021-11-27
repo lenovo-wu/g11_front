@@ -35,7 +35,7 @@
                 />
               </el-form-item>
 
-              <el-form-item label="验证码" prop="check">
+              <el-form-item label="验证码" prop="name">
                 <el-input
                   v-model="ruleForm.name"
                 />
@@ -77,7 +77,7 @@
           email: '',
           pass: '',
           checkPass: '',
-          check: ''
+          name: ''
         },
         rules: {
             email: [
@@ -101,7 +101,7 @@
             { required: true, message: '请再次输入密码', trigger: 'blur' },
             { validator: validatePass, trigger: 'blur' }
           ],
-          check: [
+          name: [
           { required: true, message: '请输入邮箱验证码', trigger: 'blur' },
           {
             min: 4,
