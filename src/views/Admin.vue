@@ -8,13 +8,27 @@
 
 <!-- 侧边栏 -->
         <Aside />
-
 <!-- 内容区域 -->
-        <router-view style="flex: 1"/>
+    <template>
+      <div style="padding: 10px; width:100%">
+<!-- 按钮功能区域 -->
+      <div style="margin:10px 0">
+      <el-button type="primary">新增</el-button>         
+       </div>
+<!-- 按钮搜索区域 -->
+      <div style="margin: 10px 0">
+        <el-input v-model="search" placeholder="输入用户昵称查找用户" style="width: 20%">
+        </el-input>
+        <el-button type="primary" style="margin-left:5px">查询</el-button>
+      </div>
+<!-- 数据查看表单主体 -->
+        
         <el-table
+    v-loading="loading"
     :data="tableData"
-    border="true"
-    style="width: 100%; padding: 10px">
+    :border="true"
+    style="width=100%;"
+    >
      <el-table-column
       prop="id"
       label="用户ID"
@@ -48,8 +62,33 @@
       prop="signature"
       label="个性签名"
       show-overflow-tooltip="true">
+    </el-table-column>
+    <el-table-column
+      label="操作"
+      >
+      <template slot-scope="scope">
+        <el-button @click="handleEdit(scope.row)" type="text" >编辑</el-button>
+        <el-popconfirm  title="确定删除吗？">
+        <el-button slot="reference" type="text"  style="margin-left: 10px">删除</el-button>
+        </el-popconfirm>
+      </template>
     </el-table-column>         
-  </el-table>
+  </el-table>        
+  
+  <div style="margin:10px 0">
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[5, 10, 20]"
+      :page-size="10"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
+  </div>
+
+</div>
+    </template>
     </div>   
 </div>
 </template>
@@ -67,6 +106,9 @@ export default{
     },
     data() {
       return {
+        search:'',
+        currentPage:1,
+        total:10,
         tableData: [{
           id: "31901209",
           name: "Lenovo",
@@ -109,6 +151,16 @@ export default{
           signature: "",
         }]
       }
+    },
+    methods:{
+      handleEdit(row) {
+     },
+     handleSizeChange(){
+
+     },
+     handleCurrentChange(){
+
+     },
     }    
 }
 </script>
