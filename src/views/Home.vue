@@ -1,13 +1,15 @@
 <template>
   <div>
-    <div class="box">🔔{{billboard.userName+",你好！"}}</div>
-    <el-button type="primary" class="admin" @click="inadmin">进入管理员界面</el-button>
+    <HomeHeader />
   </div>
 </template>
 
 <script>
+
 import{getBillboard} from '@/api/billboard'
+import HomeHeader from '../components/HomeHeader.vue'
 export default {
+  components: { HomeHeader },
   name: 'Home',
   data(){
     return{
