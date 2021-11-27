@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div style="background-color:#fcf1f1">
     <HomeHeader />
+    <WallExample />
   </div>
 </template>
 
@@ -8,8 +9,12 @@
 
 import{getBillboard} from '@/api/billboard'
 import HomeHeader from '../components/HomeHeader.vue'
+import WallExample from '../components/WallExample.vue'
 export default {
-  components: { HomeHeader },
+  components: { 
+    HomeHeader,
+    WallExample,
+     },
   name: 'Home',
   data(){
     return{
