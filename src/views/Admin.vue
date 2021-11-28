@@ -12,9 +12,7 @@
       <template>
         <div style="padding: 10px; width:100%">
   <!-- 按钮功能区域 -->
-        <div style="margin:10px 0">
-        <el-button type="primary">新增</el-button>         
-         </div>
+
   <!-- 按钮搜索区域 -->
         <div style="margin: 10px 0">
           <el-input v-model="search" placeholder="输入用户昵称查找用户" style="width: 20%">
