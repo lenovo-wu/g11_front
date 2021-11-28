@@ -12,9 +12,7 @@
     <template>
       <div style="padding: 10px; width:100%">
 <!-- 按钮功能区域 -->
-      <div style="margin:10px 0">
-      <el-button type="primary">新增</el-button>         
-       </div>
+
 <!-- 按钮搜索区域 -->
       <div style="margin: 10px 0">
         <el-input v-model="search" placeholder="输入用户昵称查找用户" style="width: 20%">
@@ -30,36 +28,38 @@
     style="width=100%;"
     >
      <el-table-column
-      prop="id"
+      prop="userId"
       label="用户ID"
       >
     </el-table-column>   
      <el-table-column
-      prop="name"
+      prop="userName"
       label="用户昵称"
       >
     </el-table-column>
 /*用户密码不显示*/      
     <el-table-column
-      prop="date"
+      prop="userRegistertime"
       label="注册日期"
+      type="datetime"
+      format="yyyy-MM-dd"
       sortable="">
     </el-table-column>
     <el-table-column
-      prop="state"
+      prop="userState"
       label="用户状态"
       >
     </el-table-column>
     <el-table-column
-      prop="sex"
+      prop="userSex"
       label="用户性别">
     </el-table-column>
     <el-table-column
-      prop="jurisdiction"
+      prop="userJurisdiction"
       label="用户权限">
     </el-table-column>
     <el-table-column
-      prop="signature"
+      prop="userSignature"
       label="个性签名"
       show-overflow-tooltip="true">
     </el-table-column>
@@ -86,9 +86,9 @@
       :total="total">
     </el-pagination>
   </div>
-
 </div>
     </template>
+
     </div>   
 </div>
 </template>
@@ -96,6 +96,7 @@
 
 
 <script>
+import{getUser} from '@/api/userget'
 import Header from "@/components/Header";
 import Aside from "@/components/Aside";
 export default{
@@ -106,54 +107,48 @@ export default{
     },
     data() {
       return {
+        form: {
+          UserId:"",
+          UserName:"",
+          UserPwd:"",
+          UserRegistertime:"",
+          UserState:1,
+          UserSex:3,
+          UserJurisdiction:1,
+          UserSignature:"",
+        },
+        dialogVisible: false,
         search:'',
         currentPage:1,
         total:10,
-        tableData: [{
-          id: "31901209",
-          name: "Lenovo",
-          date: '2021-11-09',
-          state: '正常',
-          sex: "男",
-          jurisdiction: "管理员",
-          signature: "",
-        },{
-          id: "31901210",
-          name: "Lenovo",
-          date: '2021-11-10',
-          state: '正常',
-          sex: "男",
-          jurisdiction: "管理员",
-          signature: "",
-        },{
-          id: "31901211",
-          name: "Lenovo",
-          date: '2021-11-11',
-          state: '正常',
-          sex: "男",
-          jurisdiction: "管理员",
-          signature: "",
-        },{
-          id: "31901212",
-          name: "Lenovo",
-          date: '2021-11-12',
-          state: '正常',
-          sex: "男",
-          jurisdiction: "管理员",
-          signature: "",
-        },{
-          id: "31901213",
-          name: "Lenovo",
-          date: '2021-11-13',
-          state: '正常',
-          sex: "男",
-          jurisdiction: "管理员",
-          signature: "",
-        }]
+        tableData: [
+
+        ]
       }
     },
+    created(){
+    this.fetchUser()
+  },
     methods:{
-      handleEdit(row) {
+    async fetchUser(){
+      getUser().then((value) => {
+        const { data } = value;
+        this.tableData = data
+      }
+      )
+    },
+    add(){
+      this.dialogVisible = true
+      this.form = {}
+    },
+    handleEdit() {
+
+     },
+    save(){
+      dialogVisible = false;
+    },
+    handleDelete() {
+
      },
      handleSizeChange(){
 
