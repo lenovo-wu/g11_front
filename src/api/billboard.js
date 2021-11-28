@@ -6,3 +6,9 @@ export function getBillboard(){
         method: 'get'
     })
 }
+export function getSignature(){
+    return request({
+        url:'/user/usersignature',
+        method: 'get'
+    })
+}
