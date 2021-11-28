@@ -38,7 +38,11 @@ const routes = [
       redirect:'/404',
       hidden: true
   },
-
+  {
+    path: '/browser',
+    name: 'Browser',
+    component: () => import('@/views/Browser')
+  },
 ]
 
 const router = new VueRouter({
