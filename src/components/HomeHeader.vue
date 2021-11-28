@@ -55,6 +55,7 @@ export default {
    background-image: url(../assets/css/bg_1.png);
    background-repeat:no-repeat;    
    background-position:50% ;
+
 }
 .spancss{
     color: #FFFFFF;

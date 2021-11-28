@@ -1,6 +1,7 @@
-<template>
-  <div style="background-color:#fcf1f1">
+<template style="height:2000px">
+  <div style="background-color:#ffffff">
     <HomeHeader />
+
     <WallExample />
   </div>
 </template>
