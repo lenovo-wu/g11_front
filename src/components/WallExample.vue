@@ -117,7 +117,7 @@ data(){
     async fetchWallcontent(){
       getWallcontent().then((value) => {
         const { data } = value;
-        this.wallContent = data
+        this.wall = data
       }
       )
     },

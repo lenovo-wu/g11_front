@@ -54,7 +54,8 @@
     </el-table-column>
     <el-table-column
       prop="userJurisdiction"
-      label="用户权限">
+      label="用户权限"
+      >
     </el-table-column>
     <el-table-column
       prop="userSignature"
