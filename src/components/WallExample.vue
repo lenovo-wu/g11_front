@@ -1,22 +1,27 @@
 <template>
-  <div style="background-color:#fcf1f1">
-    <HomeHeader />
-    <WallExample />
-  </div>
+    <div class="wallexample" >
+        
+
+    </div>
 </template>
+
+<style>
+.wallexample{
+width: 950px;
+height: 480px;
+background-color: #FFFFFF;
+position: relative;
+margin: auto;
+}
+</style>
+
+
 
 <script>
 
-import{getBillboard} from '@/api/billboard'
-import HomeHeader from '../components/HomeHeader.vue'
-import WallExample from '../components/WallExample.vue'
-export default {
-  components: { 
-    HomeHeader,
-    WallExample,
-     },
-  name: 'Home',
-  data(){
+export default{
+    name: "WallExample",
+data(){
     return{
       billboard:{
         userName:'wlx'
@@ -40,3 +45,6 @@ export default {
   }
 }
 </script>
+
+
+

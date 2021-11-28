@@ -9,13 +9,19 @@
         <span class="spancss spancss6">❔帮助<i class="item"></i></span>
         <div class="item2">ZUCC城院表白墙</div>
          <el-button type="danger" round class="buttonbrowser">进入浏览</el-button>
+         
+
     </div>
+
+    
 </template>
 
 <script>
 
 import{getBillboard} from '@/api/billboard'
+
 export default {
+  components: {  },
     name: "HomeHeader",
     data(){
     return{
