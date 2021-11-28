@@ -5,7 +5,7 @@
         <span class="spancss spancss2">发布表白墙<i class="item"></i></span>
         <span class="spancss spancss3">反馈入口<i class="item"></i></span>
         <span class="spancss spancss4">💖十大表白<i class="item"></i></span>
-        <span class="spancss spancss5">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span>
+        <span class="spancss spancss5" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span>
         <span class="spancss spancss6">❔帮助<i class="item"></i></span>
         <div class="item2">ZUCC城院表白墙</div>
          <el-button type="danger" round class="buttonbrowser">进入浏览</el-button>
@@ -43,6 +43,9 @@ export default {
     },
     inadmin(){
       this.$router.push({path:'/Admin'})
+    },
+    tologin(){
+      this.$router.push({path:'/Login'})
     }
   }
 }

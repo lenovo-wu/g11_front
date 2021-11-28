@@ -32,10 +32,9 @@
               </el-form-item>
   
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')"
-                  >提交</el-button
-                >
+                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
+                <el-button @click="toregister">注册</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -60,9 +59,9 @@
           name: [
             { required: true, message: "请输入账号", trigger: "blur" },
             {
-              min: 2,
-              max: 15,
-              message: "长度在 2 到 15 个字符",
+              min: 24,
+              max: 24,
+              message: "请输入正确的城院邮箱",
               trigger: "blur",
             },
           ],
@@ -108,6 +107,9 @@
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
+      toregister(){
+        this.$router.push({path:'/Register'})
+      }
     },
   };
   </script>
