@@ -1,11 +1,12 @@
 <template>
     <div class="wallexample" >
-        <div class="exampletoname">{{"to: "+billboard.userName}}</div>
+        <div class="exampletoname">{{"to: "+wall.wallTo}}</div>
         <div class="exampletime">{{"发布时间: "+wall.wallTime}}</div>
-        <div class="exampletitle">{{wall.wallTitle}}</div>
+        <div class="exampletitle">{{wall.wallContenttitle}}</div>
         <div class="exampletext">{{wall.wallContent}}</div>
-        <div class="exampleauthor">{{"作者"+billboard.userName}}</div>
-        <div class="examplesign">{{"签名"+billboard.userSignature}}</div>
+        <div class="exampleauthor">{{"作者: "+billboard.userName}}</div>
+        <div class="examplesigntitle">签名</div>
+        <div class="examplesign">{{billboard.userSignature}}</div>
 
     </div>
 </template>
@@ -50,84 +51,112 @@ box-shadow: 1px 1px 6px #000000;
   top: 100px;
   left: 180px;
   position: relative;
-  color: #FFFFFF;
+  color: #000000;
   word-wrap: break-word; 
   word-break: normal; 
   text-indent:20px;
   width: 500px;
-  height: 200px;
-  background-color: #000000;
+  height: 100px;
+  background-color: #ffffff;
+}
+.examplesigntitle{
+  color: #000000;
+  position: relative;
+  top: 90px;
+  left: 145px;
+  font-style:italic;
 }
 .examplesign{
-  width: 500px;
-  height: 200px;
-  background-color: #000000;
-  color: #FFFFFF;
+  padding: 10px;
+  width: 535px;
+  height: 100px;
+  word-wrap: break-word; 
+  word-break: normal; 
+  text-indent:20px;
+  background-color: #ffffff;
+  color: #000000;
   position: relative;
-  top: 100px;
-  left: 25px;
+  top: 90px;
+  left: 145px;
+  font-style:italic;
+}
+.exampleauthor{
+  float:right;
+  width: 100px;
+  height: 60px;
+  background-color: #ffffff;
+  color: #000000;
+  position: relative;
+  top: 220px;
+  right: 180px;
+  
+
 }
 </style>
 
 
 
 <script>
-import{getSignature} from '@/api/billboard'
+// import{getSignature} from '@/api/billboard'
 import{getBillboard} from '@/api/billboard'
-import {getWalltime} from '../api/wall/wall'
-import {getWallcontent} from '../api/wall/wall'
-import {getWalltitle} from '../api/wall/wall'
+// import {getWalltime} from '../api/wall/wall'
+// import {getWallcontent} from '../api/wall/wall'
+import {getWallall} from '../api/wall/wall'
 export default{
     name: "WallExample",
 data(){
     return{
-      wall:{
-        wallTime:'2021-11-28',
+      wall:
+      {
+        wallTime:'2021-11-27',
         wallContent:'examplecontent111111111111111111111111111111111111111111111111111111',
-        wallTitle:'exampletitle1'
+        wallContenttitle:'exampletitle1',
+        wallTo:'牛魔王',
+        wallUserid:'userid',
       },
       billboard:{
-        userSignature:'abc',
+        userSignature:'abcsassdfsdgsdgsdgsddddddddddfsdfffffffffffffffffffsdfdsfsd水电费会计核算的开发SDK劲夫和看',
         userName:'wlx',
       }
     }
   },
   created(){
-    this.fetchWalltime()
-    this.fetchWallcontent()
-    this.fetchWalltitle()
+    this.fetchWallall()
+    // this.fetchWallcontent()
+    // this.fetchWalltitle()
     this.fetchBillboard()
-    this.fetchUsersignature()
+    // this.fetchUsersignature()
+    // this.fetchWallto()
   },
   methods:{
-    async fetchWalltime(){
-      getWalltime().then((value) => {
+    async fetchWallall(){
+      getWallall().then((value) => {
         const { data } = value;
-        this.wallTime = data
+        this.wall = data
       }
       )
     },
-    async fetchUsersignature(){
-      getSignature().then((value) => {
-        const { data } = value;
-        this.userSignature = data
-      }
-      )
-    },
-    async fetchWallcontent(){
-      getWallcontent().then((value) => {
-        const { data } = value;
-        this.wallContent = data
-      }
-      )
-    },
-    async fetchWalltitle(){
-      getWalltitle().then((value) => {
-        const { data } = value;
-        this.wallTitle = data
-      }
-      )
-    },
+  //   async fetchUsersignature(){
+  //     getSignature().then((value) => {
+  //       const { data } = value;
+  //       this.billboard = data
+  //     }
+  //     )
+  //   },
+  //   async fetchWallcontent(){
+  //     getWallcontent().then((value) => {
+  //       const { data } = value;
+  //       this.wall = data
+  //     }
+  //     )
+  //   },
+  //   async fetchWalltitle(){
+  //     getWalltitle().then((value) => {
+  //       const { data } = value;
+  //       this.wall = data
+  //     }
+  //     )
+  //   },
     async fetchBillboard(){
       getBillboard().then((value) => {
         const { data } = value;
@@ -135,10 +164,18 @@ data(){
       }
       )
     },
-    inadmin(){
-      this.$router.push({path:'/Admin'})
-    }
-  }
+  //   async fetchWallto(){
+  //     getWalltowho().then((value) => {
+  //       const { data } = value;
+  //       this.wall = data
+  //     }
+  //     )
+  //   },
+  //   inadmin(){
+  //     this.$router.push({path:'/Admin'})
+  //   }
+  // }
+}
 }
 </script>
 
