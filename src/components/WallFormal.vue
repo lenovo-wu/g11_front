@@ -1,26 +1,28 @@
 <template>
-    <div class="wallexample" >
-        <div class="exampletoname">{{"to: "+wall.wallTo}}</div>
-        <div class="exampletime">{{"发布时间: "+wall.wallTime}}</div>
-        <div class="exampletitle">{{wall.wallContenttitle}}</div>
-        <div class="exampletext">{{wall.wallContent}}</div>
-        <div class="exampleauthor">{{"作者: "+billboard.userName}}</div>
-        <div class="examplesigntitle">签名</div>
-        <div class="examplesign">{{billboard.userSignature}}</div>
+    <div class="wallformal" >
+        <div class="walltoname">{{"to: "+wall.wallTo}}</div>
+        <div class="walltime">{{"发布时间: "+wall.wallTime}}</div>
+        <div class="walltitle">{{wall.wallContenttitle}}</div>
+        <div class="walltext">{{wall.wallContent}}</div>
+        <div class="wallauthor">{{"作者: "+billboard.userName}}</div>
+        <div class="wallsigntitle">签名</div>
+        <div class="wallsignature">{{billboard.userSignature}}</div>
 
     </div>
 </template>
 
 <style>
-.wallexample{
+.wallformal{
 width: 950px;
-height: 450px;
-background-color: #FFFFFF;
+height: 550px;
+background-color: #f5f5f5;
 margin: 5px auto;
 box-shadow: 1px 1px 6px #000000;
-
+z-index: 100;
+position: relative;
+top: -370px;
 }
-.exampletime{
+.walltime{
   padding: 10px;
   float: right;
   font-size: 25px;
@@ -28,7 +30,7 @@ box-shadow: 1px 1px 6px #000000;
   color: #000000;
   font-weight: bold;
 }
-.exampletoname{
+.walltoname{
   padding: 10px;
   float: left;
   font-size: 25px;
@@ -36,7 +38,7 @@ box-shadow: 1px 1px 6px #000000;
   color: #000000;
   font-weight: bold;
 }
-.exampletitle{
+.walltitle{
   padding: 10px;
   position: relative;
   top: 100px;
@@ -47,7 +49,7 @@ box-shadow: 1px 1px 6px #000000;
   color: #000000;
   position: relative;
 }
-.exampletext{
+.walltext{
   top: 100px;
   left: 180px;
   position: relative;
@@ -59,14 +61,14 @@ box-shadow: 1px 1px 6px #000000;
   height: 100px;
   background-color: #ffffff;
 }
-.examplesigntitle{
+.wallsigntitle{
   color: #000000;
   position: relative;
   top: 90px;
   left: 145px;
   font-style:italic;
 }
-.examplesign{
+.wallsignature{
   padding: 10px;
   width: 535px;
   height: 100px;
@@ -80,7 +82,7 @@ box-shadow: 1px 1px 6px #000000;
   left: 145px;
   font-style:italic;
 }
-.exampleauthor{
+.wallauthor{
   float:right;
   width: 100px;
   height: 60px;
@@ -103,14 +105,14 @@ import{getBillboard} from '@/api/billboard'
 // import {getWallcontent} from '../api/wall/wall'
 import {getWallall} from '../api/wall/wall'
 export default{
-    name: "WallExample",
+    name: "Wallformal",
 data(){
     return{
       wall:
       {
         wallTime:'2021-11-27',
         wallContent:'examplecontent111111111111111111111111111111111111111111111111111111',
-        wallContenttitle:'exampletitle1',
+        wallContenttitle:'walltitle1',
         wallTo:'牛魔王',
         wallUserid:'userid',
       },

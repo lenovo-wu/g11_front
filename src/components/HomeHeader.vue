@@ -8,7 +8,7 @@
         <span class="spancss spancss5" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span>
         <span class="spancss spancss6">❔帮助<i class="item"></i></span>
         <div class="item2">ZUCC城院表白墙</div>
-         <el-button type="danger" round class="buttonbrowser">进入浏览</el-button>
+         <el-button type="danger" round class="buttonbrowser" @click="inbroser">进入浏览</el-button>
          
 
     </div>
@@ -45,7 +45,9 @@ export default {
       this.$router.push({path:'/Admin'})
     },
     tologin(){
-      this.$router.push({path:'/Login'})
+      this.$router.push({path:'/Login'})},
+    inbroser(){
+      this.$router.push({path:'/Browser'})
     }
   }
 }
@@ -58,6 +60,7 @@ export default {
    background-image: url(../assets/css/bg_1.png);
    background-repeat:no-repeat;    
    background-position:50% ;
+
 }
 .spancss{
     color: #FFFFFF;
