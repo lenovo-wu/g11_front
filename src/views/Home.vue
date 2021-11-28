@@ -2,7 +2,7 @@
   <div style="background-color:#ffffff">
     <HomeHeader />
 
-    <WallExample />
+    <Footter />
   </div>
 </template>
 
@@ -10,11 +10,11 @@
 
 import{getBillboard} from '@/api/billboard'
 import HomeHeader from '../components/HomeHeader.vue'
-import WallExample from '../components/WallExample.vue'
+import Footter from '../components/footter.vue'
 export default {
   components: { 
     HomeHeader,
-    WallExample,
+    Footter,
      },
   name: 'Home',
   data(){
