@@ -48,10 +48,15 @@ const routes = [
     name: 'Wallpublish',
     component: () => import('@/views/Wallpublish')
   },
-    {
+  {
     path: '/userhome',
     name: 'Userhome',
     component: () => import('@/views/Userhome')
+  },
+  {
+    path: '/feedback',
+    name: 'Feedback',
+    component: () => import('@/views/Feedback')
   },
 ]
 
