@@ -1,5 +1,5 @@
 <template>
-    <div class="footter">
+    <div class="footterbg">
         
 
     </div>
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style >
-.footter{
+.footterbg{
   width: 1200px;
   height: 500px;
   background-color: #e9e9e9;
