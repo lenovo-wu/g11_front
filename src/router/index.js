@@ -16,6 +16,16 @@ const routes = [
     component: () => import('@/views/Admin')
   },
   {
+    path: '/AdminWall',
+    name: 'AdminWall',
+    component: () => import('@/views/AdminWall')
+  },
+  {
+    path: '/AdminFeedback',
+    name: 'AdminFeedback',
+    component: () => import('@/views/AdminFeedback')
+  },
+  {
     path: '/register',
     name: 'register',
     component: () => import('@/views/auth/Register'),

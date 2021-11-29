@@ -31,7 +31,7 @@
       >
        <el-table-column
         prop="userId"
-        label="用户ID"
+        label="表白墙ID"
         >
       </el-table-column>
        <el-table-column

@@ -31,7 +31,7 @@
       >
        <el-table-column
         prop="userId"
-        label="用户ID"
+        label="反馈ID"
         >
       </el-table-column>
        <el-table-column
@@ -95,10 +95,10 @@
         width="30%"
         >
         <el-form :model="form"  label-width="120px">
-            <el-form-item label="用户ID">
+            <el-form-item label="反馈ID">
               <el-input v-model="form.userId" style="width:80%"></el-input>
             </el-form-item>
-            <el-form-item label="用户昵称">
+            <el-form-item label="反馈昵称">
               <el-input v-model="form.userName" style="width:80%"></el-input>
             </el-form-item>
             <el-form-item label="用户状态">
