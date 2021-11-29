@@ -43,6 +43,16 @@ const routes = [
     name: 'Browser',
     component: () => import('@/views/Browser')
   },
+  {
+    path: '/wallpublish',
+    name: 'Wallpublish',
+    component: () => import('@/views/Wallpublish')
+  },
+    {
+    path: '/userhome',
+    name: 'Userhome',
+    component: () => import('@/views/Userhome')
+  },
 ]
 
 const router = new VueRouter({

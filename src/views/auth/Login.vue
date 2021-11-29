@@ -15,7 +15,7 @@
               label-width="100px"
               class="demo-ruleForm"
             >
-              <el-form-item label="账号" prop="name">
+              <el-form-item label="学号" prop="name">
                 <el-input v-model="ruleForm.name"></el-input>
               </el-form-item>
   
@@ -57,11 +57,11 @@
         },
         rules: {
           name: [
-            { required: true, message: "请输入账号", trigger: "blur" },
+            { required: true, message: "请输入学号", trigger: "blur" },
             {
-              min: 24,
-              max: 24,
-              message: "请输入正确的城院邮箱",
+              min: 8,
+              max: 8,
+              message: "请输入正确的城院学号",
               trigger: "blur",
             },
           ],
