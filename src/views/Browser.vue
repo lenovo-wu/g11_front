@@ -1,5 +1,5 @@
 <template style="height:2000px">
-  <div style="background-color:#f5f5f5">
+  <div style="background-color:#f1f1f1">
     <HomeHeader />
     <WallFormal />
     <Footterbg />
