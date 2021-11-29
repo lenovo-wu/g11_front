@@ -60,7 +60,7 @@ export default {
       this.$router.push({path:'/Feedback'})
     },
     inhome(){
-      this.$router.push({path:'/Home'})
+      this.$router.push({path:'/'})
     },
     tologin(){
       this.$router.push({path:'/Login'})},
