@@ -17,7 +17,7 @@
         <div style="margin: 10px 0">
           <el-input v-model="search" placeholder="输入用户昵称查找用户" style="width: 20%">
           </el-input>
-          <el-button type="primary" style="margin-left:5px">查询</el-button>
+          <el-button type="primary" style="margin-left:5px" @click="loader">查询</el-button>
         </div>
   <!-- 数据查看表单主体 -->
           
@@ -79,7 +79,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-sizes="[5, 10, 20]"
-        :page-size="10"
+        :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total">
       </el-pagination>
@@ -96,7 +96,9 @@
   <script>
   import Header from "@/components/Header";
   import Aside from "@/components/Aside";
-  import{getUser} from '@/api/userget'
+  import{getUser} from '@/api/userget';
+  import{load} from '@/api/load';
+
   export default{
       name: "Layout",
       components: {
@@ -104,26 +106,28 @@
           Aside
       },
       created(){
-        this.fetchUser()
+        this.loader()
       },
       data() {
         return {
           search:'',
           currentPage:1,
-          total:10,
+          pageSize: 10,
+          total:0,
           tableData: [
 
           ]
         }
       },
       methods:{
-      async fetchUser(){
-      getUser().then((value) => {
-        const { data } = value;
-        this.tableData = data
-      }
-      )
+      loader(){
+        load(this.currentPage,this.pageSize,this.search).then(res=>{
+          console.log(res);
+          this.tableData=res.data.records
+          this.total=res.data.total
+        })
       },
+
         handleEdit(row) {
        },
        handleSizeChange(){
