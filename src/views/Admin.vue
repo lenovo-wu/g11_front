@@ -15,12 +15,14 @@
 
   <!-- 按钮搜索区域 -->
         <div style="margin: 10px 0">
-          <el-input v-model="search" placeholder="输入用户昵称查找用户" style="width: 20%">
+          <el-input v-model="search" placeholder="输入用户昵称查找用户" style="width: 20%" clearable="">
           </el-input>
           <el-button type="primary" style="margin-left:5px" @click="loader">查询</el-button>
         </div>
   <!-- 数据查看表单主体 -->
-          
+
+
+
           <el-table
       v-loading="loading"
       :data="tableData"
@@ -84,9 +86,46 @@
         :total="total">
       </el-pagination>
     </div>
-  
-  </div>
-      </template>
+    
+    </div>
+    </template>
+    <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+        >
+        <el-form :model="form"  label-width="120px">
+            <el-form-item label="用户ID">
+              <el-input v-model="form.userId" style="width:80%"></el-input>
+            </el-form-item>
+            <el-form-item label="用户昵称">
+              <el-input v-model="form.userName" style="width:80%"></el-input>
+            </el-form-item>
+            <el-form-item label="用户状态">
+              <el-radio v-model="form.userState" label="正常">正常</el-radio>
+              <el-radio v-model="form.userState" label="冷冻">冷冻</el-radio>
+              <el-radio v-model="form.userState" label="封禁">封禁</el-radio>              
+            </el-form-item>
+            <el-form-item label="用户性别">
+              <el-radio v-model="form.userSex" label="男">男</el-radio>
+              <el-radio v-model="form.userSex" label="女">女</el-radio>
+              <el-radio v-model="form.userSex" label="未知">未知</el-radio>  
+            </el-form-item>
+            <el-form-item label="用户权限">
+              <el-radio v-model="form.userJurisdiction" label="普通用户">普通用户</el-radio>
+              <el-radio v-model="form.userJurisdiction" label="管理员">管理员</el-radio>
+            </el-form-item>
+            <el-form-item label="个性签名">
+              <el-input type="textarea"  v-model="form.userSignature" style="width:80%"></el-input>
+            </el-form-item>                        
+        </el-form>
+        <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="update">确 定</el-button>
+        </span>          
+        </template>
+    </el-dialog>
       </div>   
   </div>
   </template>
@@ -96,9 +135,8 @@
   <script>
   import Header from "@/components/Header";
   import Aside from "@/components/Aside";
-  import{getUser} from '@/api/userget';
   import{load} from '@/api/load';
-
+  import{update} from '@/api/updateuser';
   export default{
       name: "Layout",
       components: {
@@ -110,6 +148,8 @@
       },
       data() {
         return {
+          form: {},
+          dialogVisible: false,
           search:'',
           currentPage:1,
           pageSize: 10,
@@ -120,6 +160,13 @@
         }
       },
       methods:{
+      update(){
+        update(this.form).then(res=>{
+          console.log(res)
+        })
+        this.loader(); //刷新表格的数据
+        this.dialogVisible=false  //关闭弹窗
+      },
       loader(){
         load(this.currentPage,this.pageSize,this.search).then(res=>{
           console.log(res);
@@ -129,6 +176,8 @@
       },
 
         handleEdit(row) {
+          this.form = JSON.parse(JSON.stringify(row))
+          this.dialogVisible=true;
        },
        handleSizeChange(){
   
