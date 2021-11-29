@@ -25,39 +25,39 @@
       v-loading="loading"
       :data="tableData"
       :border="true"
-      style="width=100%;"
+      style="width:100%;"
       >
        <el-table-column
-        prop="id"
+        prop="userId"
         label="用户ID"
         >
-      </el-table-column>   
+      </el-table-column>
        <el-table-column
-        prop="name"
+        prop="userName"
         label="用户昵称"
         >
       </el-table-column>
   /*用户密码不显示*/      
       <el-table-column
-        prop="date"
+        prop="userRegistertime"
         label="注册日期"
         sortable="">
       </el-table-column>
       <el-table-column
-        prop="state"
+        prop="userState"
         label="用户状态"
         >
       </el-table-column>
       <el-table-column
-        prop="sex"
+        prop="userSex"
         label="用户性别">
       </el-table-column>
       <el-table-column
-        prop="jurisdiction"
+        prop="userJurisdiction"
         label="用户权限">
       </el-table-column>
       <el-table-column
-        prop="signature"
+        prop="userSignature"
         label="个性签名"
         show-overflow-tooltip="true">
       </el-table-column>
@@ -96,61 +96,34 @@
   <script>
   import Header from "@/components/Header";
   import Aside from "@/components/Aside";
+  import{getUser} from '@/api/userget'
   export default{
       name: "Layout",
       components: {
           Header,
           Aside
       },
+      created(){
+        this.fetchUser()
+      },
       data() {
         return {
           search:'',
           currentPage:1,
           total:10,
-          tableData: [{
-            id: "31901209",
-            name: "Lenovo",
-            date: '2021-11-09',
-            state: '正常',
-            sex: "男",
-            jurisdiction: "管理员",
-            signature: "",
-          },{
-            id: "31901210",
-            name: "Lenovo",
-            date: '2021-11-10',
-            state: '正常',
-            sex: "男",
-            jurisdiction: "管理员",
-            signature: "",
-          },{
-            id: "31901211",
-            name: "Lenovo",
-            date: '2021-11-11',
-            state: '正常',
-            sex: "男",
-            jurisdiction: "管理员",
-            signature: "",
-          },{
-            id: "31901212",
-            name: "Lenovo",
-            date: '2021-11-12',
-            state: '正常',
-            sex: "男",
-            jurisdiction: "管理员",
-            signature: "",
-          },{
-            id: "31901213",
-            name: "Lenovo",
-            date: '2021-11-13',
-            state: '正常',
-            sex: "男",
-            jurisdiction: "管理员",
-            signature: "",
-          }]
+          tableData: [
+
+          ]
         }
       },
       methods:{
+      async fetchUser(){
+      getUser().then((value) => {
+        const { data } = value;
+        this.tableData = data
+      }
+      )
+      },
         handleEdit(row) {
        },
        handleSizeChange(){
