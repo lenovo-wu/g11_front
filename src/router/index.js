@@ -43,6 +43,11 @@ const routes = [
     name: 'Browser',
     component: () => import('@/views/Browser')
   },
+  {
+    path: '/userhome',
+    name: 'Userhome',
+    component: () => import('@/views/Userhome')
+  },
 ]
 
 const router = new VueRouter({
