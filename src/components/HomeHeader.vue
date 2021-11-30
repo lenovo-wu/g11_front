@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <div style="width: 300px; padding-left:80px; font-size:10px; color:#FFFFFF" class="item1">欢迎来到城院表白墙</div>
+        <div style="width: 300px; padding-left:80px; font-size:10px; color:#FFFFFF; cursor: pointer;" class="item1" @click="inhome">欢迎来到城院表白墙</div>
         <span class="spancss spancss1" @click="inadmin">管理员入口<i class="item"></i></span>
-        <span class="spancss spancss2">发布表白墙<i class="item"></i></span>
-        <span class="spancss spancss3">反馈入口<i class="item"></i></span>
+        <span class="spancss spancss2" @click="inpublish">发布表白墙<i class="item"></i></span>
+        <span class="spancss spancss3" @click="infeedback">反馈入口<i class="item"></i></span>
         <span class="spancss spancss4">💖十大表白<i class="item"></i></span>
 
         <div v-if="token != null && token !== ''" class="spancss spancss">
@@ -57,10 +57,19 @@ export default {
     inadmin(){
       this.$router.push({path:'/Admin'})
     },
+    infeedback(){
+      this.$router.push({path:'/Feedback'})
+    },
+    inhome(){
+      this.$router.push({path:'/'})
+    },
     tologin(){
       this.$router.push({path:'/Login'})},
     inbroser(){
       this.$router.push({path:'/Browser'})
+    },
+    inpublish(){
+      this.$router.push({path:'/Wallpublish'})
     },
     touserhome(){
       this.$router.push({path:'/Userhome'})

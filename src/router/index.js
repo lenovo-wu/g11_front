@@ -16,6 +16,16 @@ const routes = [
     component: () => import('@/views/Admin')
   },
   {
+    path: '/AdminWall',
+    name: 'AdminWall',
+    component: () => import('@/views/AdminWall')
+  },
+  {
+    path: '/AdminFeedback',
+    name: 'AdminFeedback',
+    component: () => import('@/views/AdminFeedback')
+  },
+  {
     path: '/register',
     name: 'register',
     component: () => import('@/views/auth/Register'),
@@ -44,10 +54,20 @@ const routes = [
     component: () => import('@/views/Browser')
   },
   {
+    path: '/wallpublish',
+    name: 'Wallpublish',
+    component: () => import('@/views/Wallpublish')
+  },
+  {
     path: '/userhome',
     name: 'Userhome',
     component: () => import('@/views/Userhome'),
     meta:{title:'个人中心'}
+  },
+  {
+    path: '/feedback',
+    name: 'Feedback',
+    component: () => import('@/views/Feedback')
   },
 ]
 

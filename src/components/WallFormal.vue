@@ -1,9 +1,9 @@
 <template>
     <div class="wallformal" >
-        <div class="walltoname">{{"to: "+wall.wallTo}}</div>
-        <div class="walltime">{{"发布时间: "+wall.wallTime}}</div>
-        <div class="walltitle">{{wall.wallContenttitle}}</div>
-        <div class="walltext">{{wall.wallContent}}</div>
+        <div class="walltoname">{{"to: "+tableData[0].wallTo}}</div>
+        <div class="walltime">{{"发布时间: "+tableData[0].wallTime}}</div>
+        <div class="walltitle">{{tableData[0].wallContenttitle}}</div>
+        <div class="walltext">{{tableData[0].wallContent}}</div>
         <div class="wallauthor">{{"作者: "+billboard.userName}}</div>
         <div class="wallsigntitle">个性签名</div>
         <div class="wallsignature">{{billboard.userSignature}}</div>
@@ -12,11 +12,21 @@
         <div class="bgbutton btcommon"> </div>
         <div class="bgbutton btbad" @click="badopen"> </div>
         <div class="bgbutton btchoose" @click="chooseopen"> </div>
-        <el-pagination class="pagetransform"
-          background
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
+        <div style="width:220px;position:relative;bottom:43px;left:50px">
+          <el-input v-model="search" placeholder="以用户id查找"  clearable="" style="float:left;width:130px"></el-input>
+          <el-button type="primary" style="float:right;width:80px" @click="loadAllwall">查询</el-button>
+        </div>
+        <div style="margin:10px 0" class="pagetransform">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[1]"
+            :page-size="pageSize"
+            Wallformal="total, sizes, prev, pager, next, jumper"
+            :total="total">
+          </el-pagination>
+        </div>
         <Selector />
     </div>
 </template>
@@ -160,6 +170,7 @@ top: -370px;
 <script>
 import{getBillboard} from '@/api/billboard'
 import {getWallall} from '../api/wall/wall'
+import {loadAllwall} from '@/api/wall/loadwall'
 import Selector from './Selector.vue'
 export default{
   components: { Selector },
@@ -177,20 +188,38 @@ data(){
       billboard:{
         userSignature:'abcsassdfsdgsdgsdgsddddddddddfsdfffffffffffffffffffsdfdsfsd水电费会计核算的开发SDK劲夫和看',
         userName:'wlx',
-      }
+      },
+      page:{
+        total:'',
+        pagesize:1,
+        currentpage:1,
+        search:''
+      },
+      tableData: [
+
+      ]
     }
   },
   created(){
+    this.loadAllwall()
     this.fetchWallall()
     this.fetchBillboard()
+    
   },
   methods:{
-    async fetchWallall(){
-      getWallall().then((value) => {
-        const { data } = value;
-        this.wall = data
-      }
-      )
+    // async fetchWallall(){
+    //   getWallall().then((value) => {
+    //     const { data } = value;
+    //     this.wall = data
+    //   }
+    //   )
+    // },
+    loadAllwall(){
+      loadAllwall(this.currentPage,this.pageSize,this.search).then(res=>{
+        console.log(res);        
+        this.tableData =res.data.records
+        this.page.total=res.data.total
+      })
     },
     goodopen() {
         this.$alert('点赞成功！', '提示', {
