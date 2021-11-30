@@ -184,7 +184,7 @@
           deleteuser(userId).then(res=>{
           console.log(res)
           })
-          this.loader();
+          this.loader()
        },       
        handleSizeChange(pageSize){  //改变当前每页的个数
        this.pageSize=pageSize
