@@ -4,9 +4,9 @@
         <div class="walltime">{{"发布时间: "+tableData[0].wallTime}}</div>
         <div class="walltitle">{{tableData[0].wallContenttitle}}</div>
         <div class="walltext">{{tableData[0].wallContent}}</div>
-        <div class="wallauthor">{{"作者: "+billboard.userName}}</div>
+        <div class="wallauthor">{{"作者: "+walluser.userName}}</div>
         <div class="wallsigntitle">个性签名</div>
-        <div class="wallsignature">{{billboard.userSignature}}</div>
+        <div class="wallsignature">{{walluser.userSignature}}</div>
         <div class="bgbutton btgood" @click="goodopen"> </div>
         <div class="bgbutton btcollection" @click="collectionopen"> </div>
         <div class="bgbutton btcommon"> </div>
@@ -158,15 +158,18 @@ top: -370px;
 .pagetransform{
   position: relative;
   bottom: 40px;
-  left: 350px;
+  left: 200px;
 }
 
 </style>
 
 
 <script>
-import{getBillboard} from '@/api/billboard'
-import {getWallall} from '../api/wall/wall'
+
+import{getInfo} from '@/api/user'
+import{getuser} from '@/api/user'
+import { mapGetters } from 'vuex'
+
 import {loadAllwall} from '@/api/wall/loadwall'
 import Selector from './Selector.vue'
 export default{
@@ -174,13 +177,8 @@ export default{
     name: "Wallformal",
 data(){
     return{
-      wall:
-      {
-        wallTime:'2021-11-27',
-        wallContent:'examplecontent111111111111111111111111111111111111111111111111111111',
-        wallContenttitle:'walltitle1',
-        wallTo:'牛魔王',
-        wallUserid:'userid',
+      abc:{
+        userId:'',
       },
       billboard:{
         userSignature:'abcsassdfsdgsdgsdgsddddddddddfsdfffffffffffffffffffsdfdsfsd水电费会计核算的开发SDK劲夫和看',
@@ -194,15 +192,20 @@ data(){
       },
       tableData: [
 
-      ]
+      ],
+      walluser:{
+        userSignature:'',
+        userName:'',
+      }
     }
   },
   created(){
     this.loadAllwall()
-    this.fetchWallall()
-    this.fetchBillboard()
-    
+    this.fetchUserinfobyid()
   },
+  computed: {
+    ...mapGetters(['token', 'user'])
+    },
   methods:{
   
     loadAllwall(){
@@ -215,58 +218,50 @@ data(){
     handleCurrentChange(pageNum){  //改变当前页码触发
       this.currentpage=pageNum
       this.loadAllwall()
+      this.fetchUser()
     },
     goodopen() {
         this.$alert('点赞成功！', '提示', {
           confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            })
-          }
         })
       },
       badopen() {
         this.$alert('举报成功！', '提示', {
           confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            })
-          }
         })
       },
       collectionopen() {
         this.$alert('收藏成功！', '提示', {
           confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            })
-          }
         })
       },
       chooseopen() {
         this.$alert('认领成功！', '提示', {
           confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            })
-          }
+          // callback: action => {
+          //   this.$message({
+          //     type: 'info',
+          //     message: `action: ${ action }`
+          //   })
+          // }
         })
       },
-    async fetchBillboard(){
-      getBillboard().then((value) => {
+     fetchUserinfo(){
+      getInfo().then((value) => {
         const { data } = value;
         this.billboard = data
       }
       )
     },
+    fetchUser(){
+      getuser(this.tableData[0].userId).then((value) => {
+        console.log(value)
+        this.walluser.userName = value.userName;
+        this.walluser.userSignature = value.userSignature
+        console.log(this.walluser)
+      }
+      )
+    }
 }
 }
 </script>
