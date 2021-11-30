@@ -1,4 +1,4 @@
-import { getUserInfo, login, logout } from "@/api/auth/auth";
+import { getUserInfo,  login, logout } from "@/api/auth/auth";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 
 const state = {
@@ -24,7 +24,7 @@ const actions = {
       login({ username: name.trim(), password: pass, rememberMe: rememberMe })
         .then((response) => {
           const { data } = response;
-          commit("SET_TOKEN_STATE", data.token);
+          commit('SET_TOKEN_STATE', data.token);
           setToken(data.token);
           resolve();
         })

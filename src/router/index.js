@@ -46,7 +46,8 @@ const routes = [
   {
     path: '/userhome',
     name: 'Userhome',
-    component: () => import('@/views/Userhome')
+    component: () => import('@/views/Userhome'),
+    meta:{title:'个人中心'}
   },
 ]
 
