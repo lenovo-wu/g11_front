@@ -12,19 +12,15 @@
         <div class="bgbutton btcommon"> </div>
         <div class="bgbutton btbad" @click="badopen"> </div>
         <div class="bgbutton btchoose" @click="chooseopen"> </div>
-        <div style="width:220px;position:relative;bottom:43px;left:50px">
-          <el-input v-model="search" placeholder="以用户id查找"  clearable="" style="float:left;width:130px"></el-input>
-          <el-button type="primary" style="float:right;width:80px" @click="loadAllwall">查询</el-button>
-        </div>
         <div style="margin:10px 0" class="pagetransform">
           <el-pagination
-            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="currentPage"
+            :current-page="this.page.currentpage"
             :page-sizes="[1]"
-            :page-size="pageSize"
-            Wallformal="total, sizes, prev, pager, next, jumper"
-            :total="total">
+            :page-size="this.page.pagesize"
+            :total="this.page.total"
+            layout="prev, pager, next, total,  jumper"
+            >
           </el-pagination>
         </div>
         <Selector />
@@ -162,8 +158,9 @@ top: -370px;
 .pagetransform{
   position: relative;
   bottom: 40px;
-  left: 250px;
+  left: 350px;
 }
+
 </style>
 
 
@@ -190,7 +187,7 @@ data(){
         userName:'wlx',
       },
       page:{
-        total:'',
+        total:0,
         pagesize:1,
         currentpage:1,
         search:''
@@ -207,19 +204,17 @@ data(){
     
   },
   methods:{
-    // async fetchWallall(){
-    //   getWallall().then((value) => {
-    //     const { data } = value;
-    //     this.wall = data
-    //   }
-    //   )
-    // },
+  
     loadAllwall(){
-      loadAllwall(this.currentPage,this.pageSize,this.search).then(res=>{
+      loadAllwall(this.currentpage,this.pagesize,this.search).then(res=>{
         console.log(res);        
         this.tableData =res.data.records
         this.page.total=res.data.total
       })
+    },
+    handleCurrentChange(pageNum){  //改变当前页码触发
+      this.currentpage=pageNum
+      this.loadAllwall()
     },
     goodopen() {
         this.$alert('点赞成功！', '提示', {
