@@ -112,7 +112,7 @@
               <el-radio v-model="form.userSex" label="未知">未知</el-radio>  
             </el-form-item>
             <el-form-item label="用户权限">
-              <el-radio v-model="form.userJurisdiction" label="普通用户">普通用户</el-radio>
+              <el-radio v-model="form.userJurisdiction" label="用户">用户</el-radio>
               <el-radio v-model="form.userJurisdiction" label="管理员">管理员</el-radio>
             </el-form-item>
             <el-form-item label="个性签名">

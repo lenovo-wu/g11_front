@@ -124,7 +124,7 @@ export default {
     position: absolute;
 }
 .spancss5{
-    left: 1100px;
+    left: 950px;
     position: absolute;
 }
 .spancss6{
