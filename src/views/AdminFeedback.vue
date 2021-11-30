@@ -130,7 +130,7 @@
       },
       loader(){
         load(this.currentPage,this.pageSize,this.search).then(res=>{
-          console.log(res);
+          console.log(res)
           this.tableData=res.data.records
           this.total=res.data.total
         })
@@ -144,7 +144,7 @@
           deletefeedback(feedbackId).then(res=>{
           console.log(res)
           })
-          this.loader();
+          this.loader()
        },       
        handleSizeChange(pageSize){  //改变当前每页的个数
        this.pageSize=pageSize
