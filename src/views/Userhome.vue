@@ -1,7 +1,7 @@
 <template style="height:2000px">
     <div style="background-color:#ffffff">
       <UserhomeHeader />
-  
+      <UserhomeWall />
     </div>
   </template>
 
@@ -12,7 +12,7 @@
       export default {
         components: { 
             UserhomeHeader,
-   
+            UserhomeWall,
          },
         name: 'Userhome',
         data(){
