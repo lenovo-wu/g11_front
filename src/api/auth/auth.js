@@ -9,6 +9,15 @@ export function userRegister(userDTO) {
   })
 }
 
+//修改密码
+export function update(user) {
+  return request({
+    url: 'user/update',
+    method: 'post',
+    data: user
+  })
+}
+
 //登录
 export function login(data) {
   return request({

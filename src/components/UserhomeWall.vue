@@ -27,13 +27,18 @@
                                       <el-form-item label="注册日期">
                                         <span>{{ user.userRegistertime}}</span>
                                       </el-form-item>
+                                      <el-form-item label="邮箱">
+                                        <span>{{ user.userId}}@stu.zucc.edu.cn</span>
+                                      </el-form-item>
                                 </el-form>
                             </template>
                           </el-table-column>
                         </el-table>
                       </template>
                 </el-tab-pane>
-                <el-tab-pane label="修改密码">修改密码user.userState</el-tab-pane>
+                <el-tab-pane label="修改密码">
+                  
+                </el-tab-pane>
                 <el-tab-pane label="我的收藏">我的收藏</el-tab-pane>
                 <el-tab-pane label="我的点赞">我的点赞</el-tab-pane>
                 <el-tab-pane label="我的评论">
@@ -62,40 +67,6 @@ export default {
       return {
         tableData: [{
         }],
-
-        tableData1: [{
-            id: '12987122',
-            name: '好滋好味鸡蛋仔',
-            category: '江浙小吃、小吃零食',
-            desc: '荷兰优质淡奶，奶香浓而不腻',
-            address: '上海市普陀区真北路',
-            shop: '王小虎夫妻店',
-            shopId: '10333'
-          }, {
-            id: '12987123',
-            name: '好滋好味鸡蛋仔',
-            category: '江浙小吃、小吃零食',
-            desc: '荷兰优质淡奶，奶香浓而不腻',
-            address: '上海市普陀区真北路',
-            shop: '王小虎夫妻店',
-            shopId: '10333'
-          }, {
-            id: '12987125',
-            name: '好滋好味鸡蛋仔',
-            category: '江浙小吃、小吃零食',
-            desc: '荷兰优质淡奶，奶香浓而不腻',
-            address: '上海市普陀区真北路',
-            shop: '王小虎夫妻店',
-            shopId: '10333'
-          }, {
-            id: '12987126',
-            name: '好滋好味鸡蛋仔',
-            category: '江浙小吃、小吃零食',
-            desc: '荷兰优质淡奶，奶香浓而不腻',
-            address: '上海市普陀区真北路',
-            shop: '王小虎夫妻店',
-            shopId: '10333'
-          }]
 
       }
     },

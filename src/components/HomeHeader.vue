@@ -7,7 +7,7 @@
         <span class="spancss spancss4">💖十大表白<i class="item"></i></span>
 
         <div v-if="token != null && token !== ''" class="spancss spancss">
-          <span class="spancss spancss5" @click="touserhome" >{{user.userSex}}的个人中心<i class="item"></i></span>
+          <span class="spancss spancss5" @click="touserhome" >{{user.userName}}的个人中心<i class="item"></i></span>
         </div>  
         
         <div v-else class="spancss spancss"><span class="spancss spancss5" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span></div>
