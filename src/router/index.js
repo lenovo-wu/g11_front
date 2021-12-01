@@ -69,6 +69,11 @@ const routes = [
     name: 'Feedback',
     component: () => import('@/views/Feedback')
   },
+  {
+    path: '/help',
+    name: 'Help',
+    component: () => import('@/views/Help')
+  },
 ]
 
 const router = new VueRouter({

@@ -36,8 +36,8 @@ export function getInfoByUid(userid) {
 }
 export function getuser(userId){
   return request({
-      url:'/user/search/'+userId,
+      url:'/user/search',
       method: 'get',
-     
+      params:{userId:userId} 
   })
 }

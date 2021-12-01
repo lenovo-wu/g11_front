@@ -8,7 +8,7 @@
 
 <script>
 
-import{getBillboard} from '@/api/billboard'
+
 import HomeHeader from '../components/HomeHeader.vue'
 import Footter from '../components/footter.vue'
 export default {
@@ -25,16 +25,10 @@ export default {
     }
   },
   created(){
-    this.fetchBillboard()
+    
   },
   methods:{
-    async fetchBillboard(){
-      getBillboard().then((value) => {
-        const { data } = value;
-        this.billboard = data
-      }
-      )
-    },
+   
     inadmin(){
       this.$router.push({path:'/Admin'})
     }
