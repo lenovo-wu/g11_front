@@ -1,18 +1,21 @@
 <template style="height:2000px">
     <div style="background-color:#ffffff">
-      <UserhomeHeader />
+      <HomeHeader />
       <UserhomeWall />
+      <Footterbg />
     </div>
   </template>
 
   <script>
-      import UserhomeHeader from '../components/UserhomeHeader.vue'
+      import Footterbg from '../components/footterbg.vue'
+      import HomeHeader from '../components/HomeHeader.vue'
       import UserhomeWall from '../components/UserhomeWall.vue'
 
       export default {
         components: { 
-            UserhomeHeader,
+            HomeHeader,
             UserhomeWall,
+            Footterbg,
          },
         name: 'Userhome',
         data(){
