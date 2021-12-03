@@ -51,28 +51,44 @@
                     </el-form-item>
                   </el-form>
                 </el-tab-pane>
-                <el-tab-pane label="我的收藏">
+                <el-tab-pane label="我的收藏" >
+
                   <template>
+                    
                     <el-table
+                    v-loading="loading"
                       :data="tableData2"
-                      stripe
+                      
+                      :border="true"
                       style="width: 100%">
                       <el-table-column
-                        prop="wall"
-                        label="收藏表白墙"
-                        width="180">
+                        prop="collectionId"
+                        label="收藏ID">
                       </el-table-column>
                       <el-table-column
-                        prop="time"
-                        label="收藏时间"
-                        width="180">
+                        prop="collectionUserid"
+                        label="作者ID">
+                      </el-table-column>
+                      <el-table-column
+                        prop="collectionWallid"
+                        label="表白墙ID">
+                      </el-table-column>
+                      <el-table-column
+                        prop="collectionTime"
+                        label="收藏时间">
                       </el-table-column>
                     </el-table>
-                    <el-pagination
-                      small
-                      layout="prev, pager, next"
-                      :total="50">
-                    </el-pagination>
+                    <div style="margin:10px 0">
+                      <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[5, 10, 20]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                      </el-pagination>
+                    </div>
                   </template>
                 </el-tab-pane>
                 <el-tab-pane label="我的评论">
@@ -104,7 +120,7 @@
                     </el-pagination>
                   </template>
                 </el-tab-pane>
-                <el-tab-pane label="我的认领">我的认领</el-tab-pane>
+                <el-tab-pane label="我的认领">我的认{{user.userId}}领user.userId</el-tab-pane>
                 </el-tabs>
             </div>
         </div>
@@ -118,6 +134,8 @@
 <script>
 
 import { mapGetters } from 'vuex'
+import{load} from '@/api/userhome/load';
+
 
 
 export default {
@@ -144,6 +162,8 @@ export default {
         }
       };
       return {
+        activeName:'latest',
+        collectionList:[],
         rules: {
           pass: [
             { validator: validatePass, trigger: 'blur' }
@@ -158,70 +178,45 @@ export default {
         }],
         tableData1: [{
         }],
-        tableData2: [{
-          wall: '2016-05-02',
-          time: '王小虎',
-          
-        }, {
-          wall: '2016-05-04',
-          time: '王小虎',
-          
-        }, {
-          wall: '2016-05-01',
-          time: '王小虎',
-          
-        }, {
-          wall: '2016-05-03',
-          time: '王小虎',
-          
-        }],
-        tableData3: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        tableData2: [],
+        tableData3: [],
+        tableData: [
+
+          ],
+        currentPage:1, //当前页
+        pageSize: 10, //每页的个数
+        total:0,
+        form: {},
+        search:''
       }
     },
     computed: {
     ...mapGetters(['token', 'user'])
     },
+    created(){
+      this.loader()
+    },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+      loader(){
+        load(this.currentPage,this.pageSize,this.search).then(res=>{
+          console.log(res)
+          this.tableData2=res.data.records
+          this.total=res.data.total
+          
+         
+        })
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
-    }
+    
   
 
   
-}
+}}
 </script>
 
 <style >
 .whitewall{
     width: 1100px;
-    height: 550px;
+    height: 1550px;
     background-color: #ffffff;
     margin: 5px auto;
     box-shadow: 1px 1px 6px #000000;
@@ -229,11 +224,11 @@ export default {
     position: relative;
     top: -370px;
 }
-.left{
+/*.left{
     width: 100px;
     height: 500px;
     /*border: 2px solid red;*/
-    margin: 10px;
+    /*margin: 10px;
     float: left;
     padding-left: 10px;
 }
@@ -244,24 +239,19 @@ export default {
     width: 80px;
     height: 80px;
     /*border: 2px solid red;*/
-}
+/*/*}*/
 .middle{
-    width: 960px;
-    height: 600px;
+    width: 100%;
    /* border: 2px solid blue;*/
-    float: right;
-    margin: 10px;
 
 }
 .tabs{
-    width: 900px;
-    padding: 20px;
+    width: 100%;
     /*border: 2px solid blue;*/
-    margin: 20px;
+   
 }
 .tab{
-    width: 900px;
-    height: 400px;
+    width: 100%;
 }
 
     .demo-table-expand {
