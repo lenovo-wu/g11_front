@@ -27,4 +27,17 @@ export function update(user) {
   })
 }
 
-
+export function getInfoByUid(userid) {
+  return request({
+    url: '/user/getInfo',
+    method: 'get',
+    param: userid
+  })
+}
+export function getuser(userId){
+  return request({
+      url:'/user/search',
+      method: 'get',
+      params:{userId:userId} 
+  })
+}

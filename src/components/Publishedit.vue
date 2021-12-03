@@ -25,9 +25,11 @@
                 </el-form-item>
                 </el-form>
               </div>
-
+        
         </div>
+        <div> {{user.userId}}</div>
     </div>
+
 </template>
 
 <style>
@@ -67,11 +69,25 @@ left: 50px;
 
 
 <script>
+import {insertWall} from '@/api/wall/wall'
+import { mapGetters } from 'vuex'
 import Selector from './Selector.vue'
 export default{
   components: { Selector },
     name: "Publishedit", data() {
       return {
+        wall:{
+          wallId:1,
+          wallContent:'',
+          wallContenttitle:'',
+          wallTo:'',
+          wallUserid:'',
+          wallGood:0,
+          wallCollection:0,
+          wallTalk:0,
+          wallReport:0,
+          wallState:'正常'
+        },
         ruleForm: {
           name: '',
           region: '',
@@ -97,11 +113,21 @@ export default{
         }
       };
     },
+    computed: {
+    ...mapGetters(['token', 'user'])
+    },
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.wall.wallTo=this.ruleForm.name
+            this.wall.wallContent=this.ruleForm.ttext
+            this.wall.wallContenttitle=this.ruleForm.title
+            this.wall.wallUserid=this.user.userId
+            console.log(this.wall)
+            insertWall(this.wall)
             alert('表白成功!');
+            this.inbroser()
           } else {
             console.log('error submit!!');
             return false;
@@ -110,7 +136,8 @@ export default{
       },
       inbroser(){
       this.$router.push({path:'/Browser'})
-    },
+      },
+    
     }
   }
 </script>

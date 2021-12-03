@@ -8,8 +8,8 @@
 <style >
   .selector{
     position: relative;
-    bottom: 555px;
-    left: 110px;
+    bottom: 540px;
+    left: 150px;
   }
 </style>
 <script>

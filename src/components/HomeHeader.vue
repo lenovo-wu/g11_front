@@ -13,7 +13,7 @@
         <div v-else class="spancss spancss"><span class="spancss spancss5" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span></div>
         
         
-        <span class="spancss spancss6">帮助<i class="item"></i></span>
+        <span class="spancss spancss6" @click="tohelp">帮助<i class="item"></i></span>
         <div class="item2">ZUCC城院表白墙</div>
          <el-button type="danger" round class="buttonbrowser" @click="inbroser">进入浏览</el-button>
          
@@ -28,7 +28,6 @@
 
 import { mapGetters } from 'vuex'
 
-import{getBillboard} from '@/api/billboard'
 
 export default {
   components: {  },
@@ -41,19 +40,12 @@ export default {
     }
   },
   created(){
-    this.fetchBillboard()
+    
   },
   computed: {
     ...mapGetters(['token', 'user'])
   },
   methods:{
-    async fetchBillboard(){
-      getBillboard().then((value) => {
-        const { data } = value;
-        this.billboard = data
-      }
-      )
-    },
     inadmin(){
       this.$router.push({path:'/Admin'})
     },
@@ -73,6 +65,9 @@ export default {
     },
     touserhome(){
       this.$router.push({path:'/Userhome'})
+    },
+    tohelp(){
+      this.$router.push({path:'/Help'})
     }
   },
   
@@ -124,7 +119,7 @@ export default {
     position: absolute;
 }
 .spancss5{
-    left: 950px;
+    left: 980px;
     position: absolute;
 }
 .spancss6{
