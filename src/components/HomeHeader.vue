@@ -7,11 +7,12 @@
         <span class="spancss spancss4">💖十大表白<i class="item"></i></span>
 
         <div v-if="token != null && token !== ''" class="spancss spancss">
-          <b-navbar-item
+          <b-navbar-item class='auserhome'
             tag="router-link"
             :to="{ path: `/${user.userId}/home` }"
+            
           >
-            🧘 个人中心
+          {{user.userName}}的个人中心
           </b-navbar-item>
          
         </div>  
@@ -82,6 +83,16 @@ export default {
 </script>
 
 <style >
+  .auserhome{
+    position: absolute;
+    width: 150px;
+    color: white;
+    top: 1px;
+    right: 150px;
+    margin: 0;
+    padding: 0;
+
+  }
 .container{
    width: 1920px;
    height: 540px;
