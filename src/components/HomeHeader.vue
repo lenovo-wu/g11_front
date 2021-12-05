@@ -4,7 +4,7 @@
         <span class="spancss spancss1" @click="inadmin">管理员入口<i class="item"></i></span>
         <span class="spancss spancss2" @click="inpublish">发布表白墙<i class="item"></i></span>
         <span class="spancss spancss3" @click="infeedback">反馈入口<i class="item"></i></span>
-        <span class="spancss spancss4">💖十大表白<i class="item"></i></span>
+        <span class="spancss spancss4" @click="inrank">💖十大表白<i class="item"></i></span>
 
         <div v-if="token != null && token !== ''" class="spancss spancss">
           <b-navbar-item class='auserhome'
@@ -69,6 +69,9 @@ export default {
     },
     inpublish(){
       this.$router.push({path:'/Wallpublish'})
+    },
+    inrank(){
+      this.$router.push({path:'/Rank'})
     },
     touserhome(){
       this.$router.push({path:'/${user.userId}/home'})

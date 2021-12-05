@@ -5,7 +5,7 @@ import request from '@/utils/request'
             url:'/wall/wallall',
             method: 'get'
         })
-        }
+    }
 
     export function insertWall(data){
         return request({
@@ -13,6 +13,15 @@ import request from '@/utils/request'
             method: 'post',
             data: data
         })
+    }
+
+    export function updategood(wallId){
+        return request({
+            url:'/wall/updategood',
+            method: 'put',
+            params:{wallId:wallId} 
+        })
+    }
 // }
 // export function getWallcontent(){
 //     return request({
@@ -31,4 +40,4 @@ import request from '@/utils/request'
 //         url:'/wall/wallto',
 //         method: 'get'
 //     })
- }
+ 

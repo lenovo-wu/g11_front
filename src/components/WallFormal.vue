@@ -165,7 +165,9 @@ top: -370px;
 
 
 <script>
-
+import {insertChoose} from '@/api/choose/choose'
+import {insertCollection} from '@/api/collection/collection'
+import {update} from '@/api/adminWall/updatewall'
 import{getInfo} from '@/api/user'
 import{getuser} from '@/api/user'
 import { mapGetters } from 'vuex'
@@ -190,7 +192,19 @@ data(){
       walluser:{
         userSignature:'',
         userName:'',
-      }
+      },
+      collection:{
+        collectionId:1,
+        collectionWallid:1,
+        collectionUserid:'12121212',
+      },
+      choose:{
+        chooseId:1,
+        chooseWallid:1,
+        chooseUserid:'12121212',
+        chooseBeuserid:'12121212',
+        chooseState:'未认领'
+      },
     }
   },
   created(){
@@ -206,9 +220,18 @@ data(){
         console.log(res);   
         this.tableData =res.data.records
         this.page.total=res.data.total
+
         this.wallId=res.data.records[0].wallId
+        this.collection.collectionWallid=res.data.records[0].wallId
+        this.choose.chooseWallid=res.data.records[0].wallId
+
         console.log(this.wallId);
+        console.log(this.collectionWallid);
+
         this.auserId=res.data.records[0].wallUserid
+        this.collection.collectionUserid=this.user.userId
+        this.choose.chooseUserid=this.user.userId
+        this.choose.chooseBeuserid=res.data.records[0].wallUserid
         console.log(this.auserId)
         this.fetchUser(res.data.records[0].wallUserid)
       })
@@ -221,48 +244,66 @@ data(){
       
     },
     goodopen() {
+        this.tableData[0].wallGood++
+        update(this.tableData[0]).then(value => {
+        console.log(value)
+      }
+      )
         this.$alert('点赞成功！', '提示', {
           confirmButtonText: '确定',
+          
         })
-      },
-      badopen() {
-        this.$alert('举报成功！', '提示', {
-          confirmButtonText: '确定',
-        })
-      },
-      collectionopen() {
-        this.$alert('收藏成功！', '提示', {
-          confirmButtonText: '确定',
-        })
-      },
-      chooseopen() {
-        this.$alert('认领成功！', '提示', {
-          confirmButtonText: '确定',
-          // callback: action => {
-          //   this.$message({
-          //     type: 'info',
-          //     message: `action: ${ action }`
-          //   })
-          // }
-        })
-      },
-     fetchUserinfo(){
-      getInfo().then((value) => {
-        const { data } = value;
-        this.billboard = data
-      }
-      )
-    },
-    fetchUser(ada){
-      getuser(ada).then(value => {
-        console.log(value)   
-        this.walluser.userName = value.data[0].userName
-        this.walluser.userSignature = value.data[0].userSignature
-        console.log(this.walluser.userName)
-      }
-      )
+      },  
+    badopen() {
+      this.tableData[0].wallReport++
+      update(this.tableData[0]).then(value => {
+      console.log(value)
     }
+    )
+      this.$alert('举报成功！', '提示', {
+        confirmButtonText: '确定',
+      })
+    },
+    collectionopen() {
+      this.tableData[0].wallCollection++
+      update(this.tableData[0]).then(value => {
+      console.log(value)
+    }
+    )
+      insertCollection(this.collection).then(value => {
+        console.log(value)
+      }
+      )
+      this.$alert('收藏成功！', '提示', {
+        confirmButtonText: '确定',
+      })
+    },
+    chooseopen() {
+      insertChoose(this.choose).then(value => {
+        console.log(value)
+      }
+      )
+      this.$alert('认领成功！', '提示', {
+        confirmButtonText: '确定',
+      })
+    },
+    fetchUserinfo(){
+    getInfo().then((value) => {
+      const { data } = value;
+      this.billboard = data
+    }
+    )
+  },
+  fetchUser(ada){
+    getuser(ada).then(value => {
+      console.log(value)   
+      this.walluser.userName = value.data[0].userName
+      this.walluser.userSignature = value.data[0].userSignature
+      console.log(this.walluser.userName)
+    }
+    )
   }
+}
 }
 </script>
 

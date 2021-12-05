@@ -80,6 +80,11 @@ const routes = [
     name: 'Help',
     component: () => import('@/views/Help')
   },
+  {
+    path: '/rank',
+    name: 'Rank',
+    component: () => import('@/views/Rank')
+  },
 ]
 
 const router = new VueRouter({
