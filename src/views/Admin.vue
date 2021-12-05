@@ -15,7 +15,7 @@
 
   <!-- 按钮搜索区域 -->
         <div style="margin: 10px 0">
-          <el-input v-model="search" placeholder="输入用户昵称查找用户" style="width: 20%" clearable="">
+          <el-input v-model="search" placeholder="输入用户ID查找用户" style="width: 20%" clearable="">
           </el-input>
           <el-button type="primary" style="margin-left:5px" @click="loader">查询</el-button>
         </div>
@@ -121,7 +121,7 @@
         </el-form>
         <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button @click="reset">重置密码</el-button>
           <el-button type="primary" @click="update">确 定</el-button>
         </span>          
         </template>
@@ -138,6 +138,7 @@
   import{load} from '@/api/adminUser/load';
   import{update} from '@/api/adminUser/updateuser';
   import{deleteuser} from '@/api/adminUser/deleteuser';
+  import{resetuser} from '@/api/adminUser/reset';
   export default{
       name: "Layout",
       components: {
@@ -168,6 +169,13 @@
         this.loader()
         this.dialogVisible=false  //关闭弹窗
       },
+      reset(){
+        resetuser(this.form).then(res=>{
+          console.log(res)
+        })
+        this.loader()
+        this.dialogVisible=false  //关闭弹窗
+      },      
       loader(){
         load(this.currentPage,this.pageSize,this.search).then(res=>{
           console.log(res);
