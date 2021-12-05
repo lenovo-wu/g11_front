@@ -176,13 +176,8 @@ export default{
     name: "Wallformal",
 data(){
     return{
-      
-      userId:'31901209',
-      
-      billboard:{
-        userSignature:'abcsassdfsdgsdgsdgsddddddddddfsdfffffffffffffffffffsdfdsfsd水电费会计核算的开发SDK劲夫和看',
-        userName:'wlx',
-      },
+      wallId:1,
+      auserId:'31901211',
       page:{
         total:0,
         pagesize:1,
@@ -211,8 +206,12 @@ data(){
         console.log(res);   
         this.tableData =res.data.records
         this.page.total=res.data.total
-        this.userId=res.data.records[0].userId
-      })
+        this.wallId=res.data.records[0].wallId
+        console.log(this.wallId);
+        this.auserId=res.data.records[0].wallUserid
+        console.log(this.auserId)
+      }),
+      this.fetchUser()
     },
     handleCurrentChange(pageNum){  //改变当前页码触发
       this.currentpage=pageNum
@@ -253,7 +252,7 @@ data(){
       )
     },
     fetchUser(){
-      getuser(this.userId).then(value => {
+      getuser(this.auserId).then(value => {
         console.log(value)   
         this.walluser.userName = value.data[0].userName
         this.walluser.userSignature = value.data[0].userSignature

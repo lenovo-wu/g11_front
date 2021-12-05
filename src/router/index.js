@@ -59,6 +59,12 @@ const routes = [
     component: () => import('@/views/Wallpublish')
   },
   {
+    name: 'user',
+    path: '/:username/home',
+    component: () => import('@/views/Userhome'),
+    meta: { title: '用户主页' }
+  },
+  {
     path: '/userhome',
     name: 'Userhome',
     component: () => import('@/views/Userhome'),

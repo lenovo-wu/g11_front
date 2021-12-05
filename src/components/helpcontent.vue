@@ -25,7 +25,7 @@ top: -370px;
 .content{
     width: 700px;
     height: 300px;
-    text-indent:20px;
+    /* text-indent:20px; */
     margin: 10px;
     font-size: 20px;
     font-style: 仿宋;

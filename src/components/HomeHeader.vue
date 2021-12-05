@@ -7,7 +7,14 @@
         <span class="spancss spancss4">💖十大表白<i class="item"></i></span>
 
         <div v-if="token != null && token !== ''" class="spancss spancss">
-          <span class="spancss spancss5" @click="touserhome" >{{user.userName}}的个人中心<i class="item"></i></span>
+          <b-navbar-item class='auserhome'
+            tag="router-link"
+            :to="{ path: `/${user.userId}/home` }"
+            
+          >
+          {{user.userName}}的个人中心
+          </b-navbar-item>
+         
         </div>  
         
         <div v-else class="spancss spancss"><span class="spancss spancss5" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span></div>
@@ -64,7 +71,7 @@ export default {
       this.$router.push({path:'/Wallpublish'})
     },
     touserhome(){
-      this.$router.push({path:'/Userhome'})
+      this.$router.push({path:'/${user.userId}/home'})
     },
     tohelp(){
       this.$router.push({path:'/Help'})
@@ -76,6 +83,16 @@ export default {
 </script>
 
 <style >
+  .auserhome{
+    position: absolute;
+    width: 150px;
+    color: white;
+    top: 1px;
+    right: 150px;
+    margin: 0;
+    padding: 0;
+
+  }
 .container{
    width: 1920px;
    height: 540px;
