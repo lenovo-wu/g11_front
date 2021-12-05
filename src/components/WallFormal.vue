@@ -195,7 +195,7 @@ data(){
   },
   created(){
     this.loadAllwall()
-    
+    this.fetchUser()
   },
   computed: {
     ...mapGetters(['token', 'user'])
@@ -258,7 +258,7 @@ data(){
         console.log(value)   
         this.walluser.userName = value.data[0].userName
         this.walluser.userSignature = value.data[0].userSignature
-        console.log(this.walluser)
+        console.log(this.walluser.userName)
       }
       )
     }
