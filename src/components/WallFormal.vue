@@ -177,7 +177,7 @@ export default{
 data(){
     return{
       
-      userId:'31901211',
+      userId:'31901209',
       
       billboard:{
         userSignature:'abcsassdfsdgsdgsdgsddddddddddfsdfffffffffffffffffffsdfdsfsd水电费会计核算的开发SDK劲夫和看',
@@ -200,7 +200,7 @@ data(){
   },
   created(){
     this.loadAllwall()
-    
+    this.fetchUser()
   },
   computed: {
     ...mapGetters(['token', 'user'])
@@ -212,13 +212,12 @@ data(){
         this.tableData =res.data.records
         this.page.total=res.data.total
         this.userId=res.data.records[0].userId
-      }),
-      this.fetchUser()
+      })
     },
     handleCurrentChange(pageNum){  //改变当前页码触发
       this.currentpage=pageNum
       this.loadAllwall()
-      
+      this.fetchUser()
     },
     goodopen() {
         this.$alert('点赞成功！', '提示', {
@@ -258,7 +257,7 @@ data(){
         console.log(value)   
         this.walluser.userName = value.data[0].userName
         this.walluser.userSignature = value.data[0].userSignature
-        console.log(this.walluser)
+        console.log(this.walluser.userName)
       }
       )
     }
