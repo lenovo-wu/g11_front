@@ -210,12 +210,14 @@ data(){
         console.log(this.wallId);
         this.auserId=res.data.records[0].wallUserid
         console.log(this.auserId)
-      }),
-      this.fetchUser()
+        this.fetchUser(res.data.records[0].wallUserid)
+      })
+      
     },
     handleCurrentChange(pageNum){  //改变当前页码触发
       this.currentpage=pageNum
       this.loadAllwall()
+      
       
     },
     goodopen() {
@@ -251,8 +253,8 @@ data(){
       }
       )
     },
-    fetchUser(){
-      getuser(this.auserId).then(value => {
+    fetchUser(ada){
+      getuser(ada).then(value => {
         console.log(value)   
         this.walluser.userName = value.data[0].userName
         this.walluser.userSignature = value.data[0].userSignature
