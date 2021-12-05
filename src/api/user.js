@@ -26,7 +26,6 @@ export function update(user) {
     data: user
   })
 }
-
 export function getInfoByUid(userid) {
   return request({
     url: '/user/getInfo',
@@ -39,5 +38,12 @@ export function getuser(userId){
       url:'/user/search',
       method: 'get',
       params:{userId:userId} 
+  })
+}
+export function insertFeedback(data){
+  return request({
+      url:'/feedback/insertFeedback',
+      method: 'post',
+      data: data
   })
 }

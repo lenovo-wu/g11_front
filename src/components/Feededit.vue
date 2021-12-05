@@ -62,12 +62,21 @@ left: 50px;
 
 
 <script>
+import {insertFeedback} from '@/api/user'
+import { mapGetters } from 'vuex'
 import Selector from './Selector.vue'
 export default{
   components: { Selector },
     name: "Feededit",
 data() {
       return {
+        feedBack:{
+          feedbackId:1,
+          feedbackTitle:'',
+          feedbackContent:'',
+          feedbackUserid:'',
+          feedbackState:'未处理',
+        },
         ruleForm: {
           title:'',
           ttext:'',
@@ -84,11 +93,19 @@ data() {
         }
       };
     },
+    computed: {
+    ...mapGetters(['token', 'user'])
+    },
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.feedBack.feedbackUserid=this.user.userId
+            this.feedBack.feedbackTitle=this.ruleForm.title
+            this.feedBack.feedbackContent=this.ruleForm.ttext
+            insertFeedback(this.feedBack)
             alert('反馈成功!');
+            this.inbroser()
           } else {
             alert('反馈失败!');
             return false;
