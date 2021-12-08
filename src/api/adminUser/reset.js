@@ -1,3 +1,4 @@
+//重置用户密码
 import request from '@/utils/request'
 
 export function resetuser(data){

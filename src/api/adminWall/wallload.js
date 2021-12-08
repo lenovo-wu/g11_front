@@ -1,3 +1,4 @@
+//分页查询加载所有表白墙
 import request from '@/utils/request'
 
 export function load(pageNum,pageSize,search){
