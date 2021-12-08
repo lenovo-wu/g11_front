@@ -1,3 +1,6 @@
+<!-- 实现注册功能 -->
+
+
 <template>
     <div class="columns py-6">
       <div class="column is-half is-offset-one-quarter">

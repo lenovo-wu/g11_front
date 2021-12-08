@@ -1,3 +1,9 @@
+<!-- 
+      个人中心
+      实现查询当前用户的个人资料、收藏、评论、修改密码、个人表白墙、认领等功能
+ -->
+
+
 <template>
   <div class="whitewall">
       <div class="left">
@@ -56,17 +62,18 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                标题：{{item.wallContenttitle}}<br>
-                                创建于:{{ dayjs(item.wallTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                表白墙标题：{{item.wallContenttitle}}<br>
+                                发布于:{{ dayjs(item.wallTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
                         </div>
+                        
                         <div v-if="token" class="media-right">
                           <div v-if="topicUser.username === user.username" class="level">
                             
                             <div class="level-item">
-                              <a @click="handleDelete(item.id)">
+                              <a @click="handleDelete1(item.wallId)">
                                 <span class="tag is-danger">删除</span>
                               </a>
                             </div>
@@ -106,9 +113,9 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                内容：{{item2.replyContent}}<br>
-                                对象：{{item2.wallId}}<br>
-                                创建于:{{ dayjs(item2.replyTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                评论内容：{{item2.replyContent}}<br>
+                                评论表白墙：{{item2.wallid}}<br>
+                                评论时间:{{ dayjs(item2.replyTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
@@ -149,7 +156,7 @@
                               <span class="mr-1">
                                 表白墙：{{item3.chooseWallid}}<br>
                                 认领对象：{{item3.chooseBeuserid}}<br>
-                                创建于:{{ dayjs(item3.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                认领时间:{{ dayjs(item3.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
@@ -190,21 +197,12 @@
                               <span class="mr-1">
                                 表白墙：{{item4.chooseWallid}}<br>
                                 对象：{{item4.chooseUserid}}<br>
-                                创建于:{{ dayjs(item4.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                认领时间:{{ dayjs(item4.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
                         </div>
-                        <div v-if="token" class="media-right">
-                          <div v-if="topicUser.username === user.username" class="level">
-                            
-                            <div class="level-item">
-                              <a @click="handleDelete(item.id)">
-                                <span class="tag is-danger">删除</span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </article>
                     </div>
           
@@ -238,9 +236,8 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                ID：{{item5.id}} <br>
-                                表白墙：{{item5.CollectionWallid}}<br>
-                                创建于:{{ dayjs(item5.collectionTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                表白墙ID：{{item5.collectionWallid}}<br>
+                                收藏于:{{ dayjs(item5.collectionTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
@@ -283,7 +280,7 @@ import { getInfoByNameForColl } from '@/api/user'
 import pagination from '@/components/Pagination'
 
 import { deleteTopic } from '@/api/user'
-
+import { deletewall } from '@/api/adminWall/deletewall'
 
 export default {
 components: { pagination },
@@ -338,6 +335,7 @@ components: { pagination },
       
     }
   },
+  
   computed: {
   ...mapGetters(['token', 'user'])
   },
@@ -400,8 +398,8 @@ components: { pagination },
       })
     },
 
-    handleDelete(id) {
-      deleteTopic(id).then(value => {
+    handleDelete1(id) {
+      deletewall(id).then(value => {
         const { code, message } = value
         alert(message)
 

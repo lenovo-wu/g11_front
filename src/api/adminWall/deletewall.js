@@ -1,3 +1,4 @@
+//删除表白墙
 import request from '@/utils/request'
 
 export function deletewall(wallId){

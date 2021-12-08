@@ -1,3 +1,4 @@
+//分页查询加载所有用户列表
 import request from '@/utils/request'
 
 export function load(pageNum,pageSize,search){
