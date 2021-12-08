@@ -62,11 +62,12 @@
                             </div>
                           </nav>
                         </div>
+                        
                         <div v-if="token" class="media-right">
                           <div v-if="topicUser.username === user.username" class="level">
                             
                             <div class="level-item">
-                              <a @click="handleDelete(item.id)">
+                              <a @click="handleDelete1(item.wallId)">
                                 <span class="tag is-danger">删除</span>
                               </a>
                             </div>
@@ -195,16 +196,7 @@
                             </div>
                           </nav>
                         </div>
-                        <div v-if="token" class="media-right">
-                          <div v-if="topicUser.username === user.username" class="level">
-                            
-                            <div class="level-item">
-                              <a @click="handleDelete(item.id)">
-                                <span class="tag is-danger">删除</span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </article>
                     </div>
           
@@ -283,7 +275,7 @@ import { getInfoByNameForColl } from '@/api/user'
 import pagination from '@/components/Pagination'
 
 import { deleteTopic } from '@/api/user'
-
+import { deletewall } from '@/api/adminWall/deletewall'
 
 export default {
 components: { pagination },
@@ -400,8 +392,8 @@ components: { pagination },
       })
     },
 
-    handleDelete(id) {
-      deleteTopic(id).then(value => {
+    handleDelete1(id) {
+      deletewall(id).then(value => {
         const { code, message } = value
         alert(message)
 
