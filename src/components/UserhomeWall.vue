@@ -56,8 +56,8 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                标题：{{item.wallContenttitle}}<br>
-                                创建于:{{ dayjs(item.wallTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                表白墙标题：{{item.wallContenttitle}}<br>
+                                发布于:{{ dayjs(item.wallTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
@@ -107,9 +107,9 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                内容：{{item2.replyContent}}<br>
-                                对象：{{item2.wallId}}<br>
-                                创建于:{{ dayjs(item2.replyTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                评论内容：{{item2.replyContent}}<br>
+                                评论表白墙：{{item2.wallid}}<br>
+                                评论时间:{{ dayjs(item2.replyTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
@@ -150,7 +150,7 @@
                               <span class="mr-1">
                                 表白墙：{{item3.chooseWallid}}<br>
                                 认领对象：{{item3.chooseBeuserid}}<br>
-                                创建于:{{ dayjs(item3.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                认领时间:{{ dayjs(item3.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
@@ -191,7 +191,7 @@
                               <span class="mr-1">
                                 表白墙：{{item4.chooseWallid}}<br>
                                 对象：{{item4.chooseUserid}}<br>
-                                创建于:{{ dayjs(item4.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                认领时间:{{ dayjs(item4.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
@@ -230,9 +230,8 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                ID：{{item5.id}} <br>
-                                表白墙：{{item5.CollectionWallid}}<br>
-                                创建于:{{ dayjs(item5.collectionTime).format("YYYY/MM/DD HH:mm:ss") }}
+                                表白墙ID：{{item5.collectionWallid}}<br>
+                                收藏于:{{ dayjs(item5.collectionTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
