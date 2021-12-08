@@ -1,3 +1,4 @@
+// 用户所有界面共用头部，包含帮助、反馈、进入管理员界面、返回主页等组件
 <template>
     <div class="container">
         <div style="width: 300px; padding-left:80px; font-size:10px; color:#FFFFFF; cursor: pointer;" class="item1" @click="inhome">欢迎来到城院表白墙</div>

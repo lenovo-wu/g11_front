@@ -1,3 +1,4 @@
+// 页脚背景，设置颜色，防止与大背景颜色重合
 <template>
     <div class="footterbg">
         

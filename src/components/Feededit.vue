@@ -1,3 +1,4 @@
+// 发布反馈组件，用于发布反馈
 <template>
     <div class="wallformal" >   
         <div class="headimage">

@@ -1,3 +1,4 @@
+// 表白墙展示组件
 <template>
     <div class="wallformal" >
         <div class="walltoname">{{"to: "+tableData[0].wallTo}}</div>

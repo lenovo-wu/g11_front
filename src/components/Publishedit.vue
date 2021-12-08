@@ -1,3 +1,4 @@
+// 发布表白墙组件，用于发布表白墙
 <template>
     <div class="wallformal" >   
         <div class="headimage">

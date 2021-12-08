@@ -1,3 +1,4 @@
+// 首页页脚，放置表白图片，增添色彩
 <template>
     <div class="footter">
         

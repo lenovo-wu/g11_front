@@ -1,3 +1,4 @@
+// 前期所用表白墙展示组件，原为首页装饰，现不使用
 <template>
     <div class="wallexample" >
         <div class="exampletoname">{{"to: "+wall.wallTo}}</div>

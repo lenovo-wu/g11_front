@@ -1,3 +1,4 @@
+// 帮助组件，用于展示帮助，简陋版目前
 <template>
     <div class="wallformal" >   
     <div class="title"> 帮助 </div>  

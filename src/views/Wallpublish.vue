@@ -1,3 +1,4 @@
+// 表白墙发布窗口
 <template style="height:2000px">
   <div style="background-color:#f1f1f1">
     <HomeHeader />

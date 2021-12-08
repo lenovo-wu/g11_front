@@ -1,3 +1,4 @@
+// 帮助界面，用于展示帮助
 <template style="height:2000px">
   <div style="background-color:#f5f5f5">
     <HomeHeader />
