@@ -1,3 +1,6 @@
+<!-- 个人中心页面  引入个人中心头部、个人中心资料界面 -->
+
+
 <template style="height:2000px">
     <div style="background-color:#ffffff">
       <HomeHeader />

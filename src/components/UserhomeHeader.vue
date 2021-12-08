@@ -1,3 +1,7 @@
+<!-- 个人中心头部 -->
+
+
+
 <template>
     <div class="container">
         <div class="head"></div>

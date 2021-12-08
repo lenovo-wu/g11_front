@@ -1,3 +1,9 @@
+<!-- 
+      个人中心
+      实现查询当前用户的个人资料、收藏、评论、修改密码、个人表白墙、认领等功能
+ -->
+
+
 <template>
   <div class="whitewall">
       <div class="left">
@@ -329,6 +335,7 @@ components: { pagination },
       
     }
   },
+  
   computed: {
   ...mapGetters(['token', 'user'])
   },
