@@ -42,9 +42,35 @@
                       </el-table>
                     </template>
               </el-tab-pane>
+
+
+
               <el-tab-pane label="修改密码">
-                {{user.userName}}
+
+                <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+
+                  <el-form-item label="密码" prop="userPwd">
+                    <el-input type="password" v-model="ruleForm.userPwd" autocomplete="off"></el-input>
+                  </el-form-item>
+             <!-- <el-form-item label="确认密码" prop="checkPass">
+                    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+                  </el-form-item>-->
+           
+
+                
+                  <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                    <el-button @click="resetForm('ruleForm')">重置</el-button>
+                  </el-form-item>
+                
+                </el-form>
+
+
+
               </el-tab-pane>
+
+
+
               <el-tab-pane label="我的表白墙" >
                 <template>
                   <el-card class="box-card content" shadow="never">
@@ -154,8 +180,8 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                表白墙：{{item3.chooseWallid}}<br>
-                                认领对象：{{item3.chooseBeuserid}}<br>
+                                表白墙:{{item3.chooseWallid}}<br>
+                                认领对象:{{item3.chooseBeuserid}}<br>
                                 认领时间:{{ dayjs(item3.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
@@ -195,8 +221,8 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                表白墙：{{item4.chooseWallid}}<br>
-                                对象：{{item4.chooseUserid}}<br>
+                                表白墙:{{item4.chooseWallid}}<br>
+                                对象:{{item4.chooseUserid}}<br>
                                 认领时间:{{ dayjs(item4.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
@@ -236,7 +262,7 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left">
                               <span class="mr-1">
-                                表白墙ID：{{item5.collectionWallid}}<br>
+                                表白墙ID:{{item5.collectionWallid}}<br>
                                 收藏于:{{ dayjs(item5.collectionTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
@@ -277,8 +303,8 @@ import { getInfoByNameForReply } from '@/api/user'
 import { getInfoByNameForChoose } from '@/api/user'
 import { getInfoByNameForBeChoose } from '@/api/user'
 import { getInfoByNameForColl } from '@/api/user'
+import { updatepass } from '@/api/user'
 import pagination from '@/components/Pagination'
-
 import { deleteTopic } from '@/api/user'
 import { deletewall } from '@/api/adminWall/deletewall'
 
@@ -286,8 +312,45 @@ export default {
 components: { pagination },
   name: "whitewall",
   data() {
-    
+    //校验两次密码输入是否一致
+    var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.ruleForm.UserPwd) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+
     return {
+      //修改密码返回数据
+      ruleForm: {
+        userPwd: '',
+        userId:this.$route.params.username,
+        checkPass:''
+        },
+      
+      //校验密码规则
+      rules: {
+          UserPwd: [
+            { validator: validatePass, trigger: 'blur' }
+          ],
+          checkPass: [
+            { validator: validatePass, trigger: 'blur' }
+          ],
+        },
+      
       topicUser: {},
       topics: {},
       page: {
@@ -347,6 +410,26 @@ components: { pagination },
     this.fetchUserById5()
   },
   methods: {
+    //修改密码点击提交
+    submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+            updatepass(this.ruleForm).then(res => {
+
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+    //修改密码点击重置
+    resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+    
+    
     fetchUserById() {
       getInfoByName(this.$route.params.username, this.page.current, this.page.size).then((res) => {
         const { data } = res
@@ -469,7 +552,10 @@ components: { pagination },
     margin-bottom: 0;
     width: 50%;
   }
-
+  .demo-ruleForm{
+    width: 500px;
+   
+  }
 </style>
 
 

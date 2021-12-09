@@ -4,6 +4,15 @@
 
 import request from '@/utils/request'
 
+// 用户主页修改密码
+export function updatepass(date) {
+  return request({
+    url: 'user/updatepass',
+    method: 'put',
+    data: date
+  })
+}
+
 // 用户主页表白墙
 export function getInfoByName(username, page, size) {
   return request({
