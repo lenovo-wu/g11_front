@@ -10,7 +10,9 @@
         <div class="wallsignature">{{walluser.userSignature}}</div>
         <div class="bgbutton btgood" @click="goodopen"> </div>
         <div class="bgbutton btcollection" @click="collectionopen"> </div>
-        <div class="bgbutton btcommon"> </div>
+        <div class="bgbutton btcommon" @click="btnClicked"> 
+
+        </div>
         <div class="bgbutton btbad" @click="badopen"> </div>
         <div class="bgbutton btchoose" @click="chooseopen"> </div>
         <div style="margin:10px 0" class="pagetransform">
@@ -24,7 +26,9 @@
             >
           </el-pagination>
         </div>
-        <Selector />
+        <Selector @child-event='select' />
+        <Reply :visible="visible" @handleCancle="handleCancle" @handleOk="handleOk" v-bind:wallIdd="wallId" />
+    
     </div>
 </template>
 
@@ -173,12 +177,16 @@ import{getInfo} from '@/api/user'
 import{getuser} from '@/api/user'
 import { mapGetters } from 'vuex'
 import {loadAllwall} from '@/api/wall/loadwall'
+import {loadAllwallSix} from '@/api/wall/loadwall'
+import {loadAllwallNine} from '@/api/wall/loadwall'
 import Selector from './Selector.vue'
+import Reply from './Reply.vue'
 export default{
-  components: { Selector },
+  components: { Selector, Reply },
     name: "Wallformal",
 data(){
     return{
+      visible: false,
       wallId:1,
       auserId:'31901211',
       page:{
@@ -190,6 +198,7 @@ data(){
       tableData: [
 
       ],
+      orderKey:3,
       walluser:{
         userSignature:'',
         userName:'',
@@ -238,11 +247,77 @@ data(){
       })
       
     },
+    loadAllwallSix(){
+      loadAllwallSix(this.currentpage,this.pagesize,this.search).then(res=>{
+        console.log(res);   
+        this.tableData =res.data.records
+        this.page.total=res.data.total
+
+        this.wallId=res.data.records[0].wallId
+        this.collection.collectionWallid=res.data.records[0].wallId
+        this.choose.chooseWallid=res.data.records[0].wallId
+
+        console.log(this.wallId);
+        console.log(this.collectionWallid);
+
+        this.auserId=res.data.records[0].wallUserid
+        this.collection.collectionUserid=this.user.userId
+        this.choose.chooseUserid=this.user.userId
+        this.choose.chooseBeuserid=res.data.records[0].wallUserid
+        console.log(this.auserId)
+        this.fetchUser(res.data.records[0].wallUserid)
+      })
+      
+    },
+    loadAllwallNine(){
+      loadAllwallNine(this.currentpage,this.pagesize,this.search).then(res=>{
+        console.log(res);   
+        this.tableData =res.data.records
+        this.page.total=res.data.total
+
+        this.wallId=res.data.records[0].wallId
+        this.collection.collectionWallid=res.data.records[0].wallId
+        this.choose.chooseWallid=res.data.records[0].wallId
+
+        console.log(this.wallId);
+        console.log(this.collectionWallid);
+
+        this.auserId=res.data.records[0].wallUserid
+        this.collection.collectionUserid=this.user.userId
+        this.choose.chooseUserid=this.user.userId
+        this.choose.chooseBeuserid=res.data.records[0].wallUserid
+        console.log(this.auserId)
+        this.fetchUser(res.data.records[0].wallUserid)
+      })
+      
+    },
     handleCurrentChange(pageNum){  //改变当前页码触发
       this.currentpage=pageNum
-      this.loadAllwall()
+      if(this.orderKey==3)
+        this.loadAllwall()
+      else if(this.orderKey==6)
+        this.loadAllwallSix()
+      else if(this.orderKey==9)
+        this.loadAllwallNine()
+      else
+        console.log("wrong")
       
-      
+    },
+    select(data){
+      console.log(data)
+      if(data==3){
+        this.orderKey=3
+        this.loadAllwall()
+      }
+      else if(data==6){
+        this.orderKey=6
+        this.loadAllwallSix()
+      }
+      else{
+        this.orderKey=9
+        this.loadAllwallNine()
+      }
+        
     },
     goodopen() {
         this.tableData[0].wallGood++
@@ -303,6 +378,15 @@ data(){
       console.log(this.walluser.userName)
     }
     )
+  },
+  btnClicked(){
+    this.visible=true
+  },
+  handleCancle(){
+    this.visible=false
+  },
+  handleOk(){
+    this.visible=false
   }
 }
 }
