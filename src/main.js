@@ -25,6 +25,8 @@ dayjs().locale('zh-cn').format() // use locale in a specific instance
 
 Vue.prototype.dayjs = dayjs;//可以全局使用dayjs
 
+
+
 Vue.use(Buefy)
 Vue.use(ElementUI)
 
