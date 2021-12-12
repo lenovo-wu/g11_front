@@ -4,6 +4,8 @@
     <HomeHeader />
     <WallFormal />
     <Footterbg />
+
+    
   </div>
 </template>
 <script>
