@@ -2,7 +2,7 @@
 <template>
     <div class="wallformal" >
         <div class="walltoname">{{"to: "+tableData[0].wallTo}}</div>
-        <div class="walltime">{{"发布时间: "+tableData[0].wallTime}}</div>
+        <div class="walltime">发布时间: {{dayjs(tableData[0].wallTime).format('YYYY-MM-DD HH:mm')}}</div>
         <div class="walltitle">{{tableData[0].wallContenttitle}}</div>
         <div class="walltext">{{tableData[0].wallContent}}</div>
         <div class="wallauthor">{{"作者: "+walluser.userName}}</div>
@@ -92,7 +92,7 @@ top: -370px;
 .walltime{
   padding: 10px;
   float: right;
-  font-size: 25px;
+  font-size: 10px;
   font-style: 宋体;
   color: #000000;
   font-weight: bold;
@@ -126,13 +126,12 @@ top: -370px;
   text-indent:20px;
   width: 535px;
   height: 100px;
-  background-color: #e9e9e9;
 }
 .wallsigntitle{
   color: #000000;
   position: relative;
-  top: 95px;
-  left: 125px;
+  top: 225px;
+  left: 135px;
   font-style:italic;
 }
 .wallsignature{
@@ -142,10 +141,9 @@ top: -370px;
   word-wrap: break-word; 
   word-break: normal; 
   text-indent:20px;
-  background-color: #e9e9e9;
   color: #000000;
   position: relative;
-  top: 100px;
+  top: 230px;
   left: 180px;
   font-style:italic;
 }
