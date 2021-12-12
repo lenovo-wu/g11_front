@@ -1,3 +1,4 @@
+//管理员头部页面
 <template>
     <div style="height:50px;line-height:50px; border-bottom: 1px solid #ccc; display:flex">
         <div style="width: 200px; padding-left:30px; font-weight: bold; color:#409EFF">校园表白墙管理</div>
