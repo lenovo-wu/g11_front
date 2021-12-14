@@ -11,6 +11,11 @@ const routes = [
     component: () => import('@/views/Home')
   },
   {
+    path: '/CollectionWall',
+    name: 'collwall',
+    component: () => import('@/views/CollectionWall')
+  },
+  {
     path: '/admin',
     name: 'Admin',
     component: () => import('@/views/Admin')

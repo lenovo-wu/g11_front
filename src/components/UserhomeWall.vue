@@ -43,33 +43,17 @@
                     </template>
               </el-tab-pane>
 
-
-
               <el-tab-pane label="修改密码">
-
                 <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-
                   <el-form-item label="密码" prop="userPwd">
                     <el-input type="password" v-model="ruleForm.userPwd" autocomplete="off"></el-input>
                   </el-form-item>
-             <!-- <el-form-item label="确认密码" prop="checkPass">
-                    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-                  </el-form-item>-->
-           
-
-                
                   <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                     <el-button @click="resetForm('ruleForm')">重置</el-button>
                   </el-form-item>
-                
                 </el-form>
-
-
-
               </el-tab-pane>
-
-
 
               <el-tab-pane label="我的表白墙" >
                 <template>
@@ -77,16 +61,14 @@
                     <div slot="header" class="has-text-weight-bold">
                       <span>我的表白墙</span>
                     </div>
-          
                     <div v-if="topics.length===0">
                       暂无话题
                     </div>
-          
                     <div v-else class="topicUser-info">
                       <article v-for="(item, index) in topics" :key="index" class="media">
                         <div class="media-content">
                           <nav class="level has-text-grey is-size-9">
-                            <div class="level-left">
+                            <div class="level-left" @click="showwall(item.wallId)">
                               <span class="mr-1">
                                 表白墙标题：{{item.wallContenttitle}}<br>
                                 发布于:{{ dayjs(item.wallTime).format("YYYY/MM/DD HH:mm:ss") }}
@@ -94,10 +76,8 @@
                             </div>
                           </nav>
                         </div>
-                        
                         <div v-if="token" class="media-right">
-                          <div v-if="topicUser.username === user.username" class="level">
-                            
+                          <div v-if="topicUser.username === user.username" class="level">                       
                             <div class="level-item">
                               <a @click="handleDelete1(item.wallId)">
                                 <span class="tag is-danger">删除</span>
@@ -110,17 +90,15 @@
           
                     <!--分页-->
                     <pagination
-                      v-show="page.total > 5"
+                      v-show="page.total > 50"
                       class="mt-5"
                       :total="page.total"
                       :page.sync="page.current"
                       :limit.sync="page.size"
                       @pagination="fetchUserById"
                     />
-                  </el-card>
-                  
+                  </el-card>     
                 </template>
-                
               </el-tab-pane>
               <el-tab-pane label="我的评论">
                 <template>
@@ -128,31 +106,27 @@
                     <div slot="header" class="has-text-weight-bold">
                       <span>我的评论</span>
                     </div>
-          
                     <div v-if="topics2.length===0">
                       暂无话题
                     </div>
-          
                     <div v-else class="topicUser2-info">
                       <article v-for="(item2, index) in topics2" :key="index" class="media">
                         <div class="media-content">
                           <nav class="level has-text-grey is-size-9">
-                            <div class="level-left">
+                            <div class="level-left" @click="showwall(item2.wallId)">
                               <span class="mr-1">
                                 评论内容：{{item2.replyContent}}<br>
-                                评论表白墙：{{item2.wallid}}<br>
+                                评论表白墙：{{item2.wallId}}<br>
                                 评论时间:{{ dayjs(item2.replyTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
                           </nav>
                         </div>
-                        
                       </article>
                     </div>
-          
                     <!--分页-->
                     <pagination
-                      v-show="page2.total > 5"
+                      v-show="page2.total > 50"
                       class="mt-5"
                       :total="page2.total"
                       :page.sync="page2.current"
@@ -160,7 +134,6 @@
                       @pagination="fetchUserById2"
                     />
                   </el-card>
-                  
                 </template>
               </el-tab-pane>
               <el-tab-pane label="我的认领">
@@ -169,16 +142,14 @@
                     <div slot="header" class="has-text-weight-bold">
                       <span>我的认领</span>
                     </div>
-          
                     <div v-if="topics3.length===0">
                       暂无话题
                     </div>
-          
                     <div v-else class="topicUser3-info">
                       <article v-for="(item3, index) in topics3" :key="index" class="media">
                         <div class="media-content">
                           <nav class="level has-text-grey is-size-9">
-                            <div class="level-left">
+                            <div class="level-left" @click="showwall(item3.chooseWallid)">
                               <span class="mr-1">
                                 表白墙:{{item3.chooseWallid}}<br>
                                 认领对象:{{item3.chooseBeuserid}}<br>
@@ -187,13 +158,11 @@
                             </div>
                           </nav>
                         </div>
-                        
                       </article>
                     </div>
-          
                     <!--分页-->
                     <pagination
-                      v-show="page3.total > 5"
+                      v-show="page3.total > 50"
                       class="mt-5"
                       :total="page3.total"
                       :page.sync="page3.current"
@@ -201,25 +170,23 @@
                       @pagination="fetchUserById3"
                     />
                   </el-card>
-                  
                 </template>
               </el-tab-pane>
+
               <el-tab-pane label="认领我的">
                 <template>
                   <el-card class="box-card content" shadow="never">
                     <div slot="header" class="has-text-weight-bold">
                       <span>认领我的</span>
                     </div>
-          
                     <div v-if="topics4.length===0">
                       暂无话题
                     </div>
-          
                     <div v-else class="topicUser4-info">
                       <article v-for="(item4, index) in topics4" :key="index" class="media">
                         <div class="media-content">
                           <nav class="level has-text-grey is-size-9">
-                            <div class="level-left">
+                            <div class="level-left" @click="showwall(item4.chooseWallid)">
                               <span class="mr-1">
                                 表白墙:{{item4.chooseWallid}}<br>
                                 对象:{{item4.chooseUserid}}<br>
@@ -228,13 +195,11 @@
                             </div>
                           </nav>
                         </div>
-                        
                       </article>
                     </div>
-          
                     <!--分页-->
                     <pagination
-                      v-show="page4.total > 5"
+                      v-show="page4.total > 50"
                       class="mt-5"
                       :total="page4.total"
                       :page.sync="page4.current"
@@ -242,25 +207,23 @@
                       @pagination="fetchUserById4"
                     />
                   </el-card>
-                  
                 </template>
               </el-tab-pane>
+
               <el-tab-pane label="我的收藏">
                 <template>
                   <el-card class="box-card content" shadow="never">
                     <div slot="header" class="has-text-weight-bold">
                       <span>我的收藏</span>
                     </div>
-          
                     <div v-if="topics5.length===0">
                       暂无话题
                     </div>
-          
                     <div v-else class="topicUser5-info">
                       <article v-for="(item5, index) in topics5" :key="index" class="media">
                         <div class="media-content">
                           <nav class="level has-text-grey is-size-9">
-                            <div class="level-left">
+                            <div class="level-left" @click="showwall(item5.collectionWallid)">
                               <span class="mr-1">
                                 表白墙ID:{{item5.collectionWallid}}<br>
                                 收藏于:{{ dayjs(item5.collectionTime).format("YYYY/MM/DD HH:mm:ss") }}
@@ -268,13 +231,11 @@
                             </div>
                           </nav>
                         </div>
-                        
                       </article>
                     </div>
-          
                     <!--分页-->
                     <pagination
-                      v-show="page5.total > 5"
+                      v-show="page5.total > 50"
                       class="mt-5"
                       :total="page5.total"
                       :page.sync="page5.current"
@@ -282,17 +243,12 @@
                       @pagination="fetchUserById5"
                     />
                   </el-card>
-                  
                 </template>
               </el-tab-pane>
               </el-tabs>
           </div>
       </div>
-      
-
   </div>
-
-  
 </template>
 
 <script>
@@ -355,35 +311,35 @@ components: { pagination },
       topics: {},
       page: {
         current: 1,
-        size: 5,
+        size: 50,
         total: 0
       },
       topicUser3: {},
       topics3: {},
       page3: {
         current: 1,
-        size: 5,
+        size: 50,
         total: 0
       },
       topicUser2: {},
       topics2: {},
       page2: {
         current: 1,
-        size: 5,
+        size: 50,
         total: 0
       },
       topicUser4: {},
       topics4: {},
       page4: {
         current: 1,
-        size: 5,
+        size: 50,
         total: 0
       },
       topicUser5: {},
       topics5: {},
       page5: {
         current: 1,
-        size: 5,
+        size: 50,
         total: 0
       },
 
@@ -403,6 +359,13 @@ components: { pagination },
   ...mapGetters(['token', 'user'])
   },
   created(){
+    //this.fetchUserById()
+    //this.fetchUserById2()
+    //this.fetchUserById3()
+    //this.fetchUserById4()
+    //this.fetchUserById5()
+  },
+  mounted(){
     this.fetchUserById()
     this.fetchUserById2()
     this.fetchUserById3()
@@ -410,6 +373,11 @@ components: { pagination },
     this.fetchUserById5()
   },
   methods: {
+    //点击收藏的表白墙然后跳转
+    showwall(wallId){
+      sessionStorage.setItem("wallid",wallId)
+      this.$router.push({ path: '/CollectionWall' })
+    },
     //修改密码点击提交
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -502,7 +470,6 @@ components: { pagination },
 <style >
 .whitewall{
   width: 1100px;
-  height: 850px;
   background-color: #ffffff;
   margin: 5px auto;
   box-shadow: 1px 1px 6px #000000;

@@ -69,6 +69,15 @@ export function getInfoByNameForColl(username, page, size) {
   })
 }
 
+//提取特定wall
+
+export function loadOneWall(wallid) {
+  return request({
+    url: 'user/selectonecoll/'+wallid,
+    method: 'get',
+  })
+}
+
 // 用户主页
 export function getInfo() {
   return request({
@@ -110,3 +119,5 @@ export function deleteTopic(id) {
     method: 'delete'
   })
 }
+
+

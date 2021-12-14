@@ -8,14 +8,12 @@
         <span class="spancss spancss4" @click="inrank">💖十大表白<i class="item"></i></span>
 
         <div v-if="token != null && token !== ''" class="spancss spancss">
-          <b-navbar-item class='auserhome'
-            tag="router-link"
-            :to="{ path: `/${user.userId}/home` }"
-            
-          >
+          <b-navbar-item class='auserhome' tag="router-link" :to="{ path: `/${user.userId}/home` }">
           {{user.userName}}的个人中心
           </b-navbar-item>
-         
+          <b-navbar-item class='logout' tag='a' @click='logout'>
+            退出登录
+          </b-navbar-item>
         </div>  
         
         <div v-else class="spancss spancss"><span class="spancss spancss5" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span></div>
@@ -35,8 +33,7 @@
 
 
 import { mapGetters } from 'vuex'
-
-
+import { logout } from '@/api/auth/auth'
 export default {
   components: {  },
     name: "HomeHeader",
@@ -54,6 +51,14 @@ export default {
     ...mapGetters(['token', 'user'])
   },
   methods:{
+    async logout() {
+      this.$store.dispatch('user/logout').then(() => {
+        this.$message.info('退出登录成功')
+        setTimeout(() => {
+          this.$router.push({ path: this.redirect || '/' })
+        }, 500)
+      })
+    },
     inadmin(){
       this.$router.push({path:'/Admin'})
     },
@@ -89,13 +94,22 @@ export default {
 <style >
   .auserhome{
     position: absolute;
-    width: 150px;
+    width: 80px;
     color: white;
     top: 1px;
-    right: 150px;
+    right: 220px;
     margin: 0;
     padding: 0;
 
+  }
+  .logout{
+    position: absolute;
+    width: 50px;
+    color: white;
+    top: 1px;
+    right: 170px;
+    margin: 0;
+    padding: 0;
   }
 .container{
    width: 1920px;

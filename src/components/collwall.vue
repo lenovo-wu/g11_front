@@ -1,13 +1,11 @@
 // 表白墙展示组件
 <template>
-    <div class="wallformal" >
-        <div class="walltoname">{{"to: "+tableData[0].wallTo}}</div>
-        <div class="walltime">发布时间: {{dayjs(tableData[0].wallTime).format('YYYY-MM-DD HH:mm')}}</div>
-        <div class="walltitle">{{tableData[0].wallContenttitle}}</div>
-        <div class="walltext">{{tableData[0].wallContent}}</div>
-        <div class="wallauthor">{{"作者: "+walluser.userName}}</div>
-        <div class="wallsigntitle">个性签名</div>
-        <div class="wallsignature">{{walluser.userSignature}}</div>
+    <div class="wallformal">
+        <div class="walltoname">to: {{wall.wallTo}}</div>
+        <div class="walltime">发布时间: {{dayjs(wall.wallTime).format('YYYY-MM-DD HH:mm')}}</div>
+        <div class="walltitle">{{wall.wallContenttitle}}</div>
+        <div class="walltext">{{wall.wallContent}}</div>
+        <div class="wallauthor">作者: {{walluser.userName}}</div>
         <div class="bgbutton btgood" @click="goodopen"> </div>
         <div class="bgbutton btcollection" @click="collectionopen"> </div>
         <div class="bgbutton btcommon" @click="btnClicked"> 
@@ -15,18 +13,6 @@
         </div>
         <div class="bgbutton btbad" @click="badopen"> </div>
         <div class="bgbutton btchoose" @click="chooseopen"> </div>
-        <div style="margin:10px 0" class="pagetransform">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="this.page.currentpage"
-            :page-sizes="[1]"
-            :page-size="this.page.pagesize"
-            :total="this.page.total"
-            layout="prev, pager, next, total,  jumper"
-            >
-          </el-pagination>
-        </div>
-        <Selector @child-event='select' />
         <Reply :visible="visible" @handleCancle="handleCancle" @handleOk="handleOk" v-bind:wallIdd="wallId" />
     
     </div>
@@ -158,42 +144,35 @@ top: -370px;
   top: 240px;
   right: 50px;
 }
-.pagetransform{
-  position: relative;
-  bottom: 40px;
-  left: 200px;
-}
 
 </style>
 
 
 <script>
-import {insertChoose} from '@/api/choose/choose'
+  import {insertChoose} from '@/api/choose/choose'
 import {insertCollection} from '@/api/collection/collection'
 import {update} from '@/api/adminWall/updatewall'
 import{getInfo} from '@/api/user'
 import{getuser} from '@/api/user'
-import { mapGetters } from 'vuex'
-import {loadAllwall} from '@/api/wall/loadwall'
-import {loadAllwallSix} from '@/api/wall/loadwall'
-import {loadAllwallNine} from '@/api/wall/loadwall'
 import Selector from './Selector.vue'
 import Reply from './Reply.vue'
+import { mapGetters } from 'vuex'
+import {loadOneWall} from '@/api/user'
 export default{
   components: { Selector, Reply },
-    name: "Wallformal",
+    name: "wallformal",
 data(){
     return{
       visible: false,
       wallId:1,
       auserId:'31901211',
-      page:{
-        total:0,
-        pagesize:1,
-        currentpage:1,
-        search:''
-      },
-      tableData: [
+      wall:{
+        
+        wallTo: '',
+        wallContent: ''
+
+    },
+    tableData: [
 
       ],
       orderKey:3,
@@ -216,110 +195,28 @@ data(){
     }
   },
   created(){
-    this.loadAllwall()
+    this.LoadOneWall()
     this.fetchUser()
   },
   computed: {
     ...mapGetters(['token', 'user'])
   },
   methods:{
-    loadAllwall(){
-      loadAllwall(this.currentpage,this.pagesize,this.search).then(res=>{
-        console.log(res);   
-        this.tableData =res.data.records
-        this.page.total=res.data.total
-
-        this.wallId=res.data.records[0].wallId
-        this.collection.collectionWallid=res.data.records[0].wallId
-        this.choose.chooseWallid=res.data.records[0].wallId
-
-        console.log(this.wallId);
-        console.log(this.collectionWallid);
-
-        this.auserId=res.data.records[0].wallUserid
-        this.collection.collectionUserid=this.user.userId
-        this.choose.chooseUserid=this.user.userId
-        this.choose.chooseBeuserid=res.data.records[0].wallUserid
-        console.log(this.auserId)
-        this.fetchUser(res.data.records[0].wallUserid)
-      })
-      
-    },
-    loadAllwallSix(){
-      loadAllwallSix(this.currentpage,this.pagesize,this.search).then(res=>{
-        console.log(res);   
-        this.tableData =res.data.records
-        this.page.total=res.data.total
-
-        this.wallId=res.data.records[0].wallId
-        this.collection.collectionWallid=res.data.records[0].wallId
-        this.choose.chooseWallid=res.data.records[0].wallId
-
-        console.log(this.wallId);
-        console.log(this.collectionWallid);
-
-        this.auserId=res.data.records[0].wallUserid
-        this.collection.collectionUserid=this.user.userId
-        this.choose.chooseUserid=this.user.userId
-        this.choose.chooseBeuserid=res.data.records[0].wallUserid
-        console.log(this.auserId)
-        this.fetchUser(res.data.records[0].wallUserid)
-      })
-      
-    },
-    loadAllwallNine(){
-      loadAllwallNine(this.currentpage,this.pagesize,this.search).then(res=>{
-        console.log(res);   
-        this.tableData =res.data.records
-        this.page.total=res.data.total
-
-        this.wallId=res.data.records[0].wallId
-        this.collection.collectionWallid=res.data.records[0].wallId
-        this.choose.chooseWallid=res.data.records[0].wallId
-
-        console.log(this.wallId);
-        console.log(this.collectionWallid);
-
-        this.auserId=res.data.records[0].wallUserid
-        this.collection.collectionUserid=this.user.userId
-        this.choose.chooseUserid=this.user.userId
-        this.choose.chooseBeuserid=res.data.records[0].wallUserid
-        console.log(this.auserId)
-        this.fetchUser(res.data.records[0].wallUserid)
-      })
-      
-    },
-    handleCurrentChange(pageNum){  //改变当前页码触发
-      this.currentpage=pageNum
-      if(this.orderKey==3)
-        this.loadAllwall()
-      else if(this.orderKey==6)
-        this.loadAllwallSix()
-      else if(this.orderKey==9)
-        this.loadAllwallNine()
-      else
-        console.log("wrong")
-      
-    },
-    select(data){
-      console.log(data)
-      if(data==3){
-        this.orderKey=3
-        this.loadAllwall()
-      }
-      else if(data==6){
-        this.orderKey=6
-        this.loadAllwallSix()
-      }
-      else{
-        this.orderKey=9
-        this.loadAllwallNine()
-      }
-        
+    LoadOneWall(){
+      console.log("1") 
+       console.log(sessionStorage.getItem("wallid"))  
+        loadOneWall(sessionStorage.getItem("wallid")).then(value => {
+        console.log(value)   
+        console.log("2")  
+        this.wall=value.data
+        console.log(value)
+        console.log(this.wall.wallTo)  
+        this.fetchUser(this.wall.wallUserid)
+        })
     },
     goodopen() {
-        this.tableData[0].wallGood++
-        update(this.tableData[0]).then(value => {
+        this.wall.wallGood++
+        update(this.wall).then(value => {
         console.log(value)
       }
       )
@@ -329,8 +226,8 @@ data(){
         })
       },  
     badopen() {
-      this.tableData[0].wallReport++
-      update(this.tableData[0]).then(value => {
+      this.wall.wallReport++
+      update(this.wall).then(value => {
       console.log(value)
     }
     )
@@ -339,8 +236,8 @@ data(){
       })
     },
     collectionopen() {
-      this.tableData[0].wallCollection++
-      update(this.tableData[0]).then(value => {
+      this.wall.wallCollection++
+      update(this.wall).then(value => {
       console.log(value)
     }
     )
@@ -370,10 +267,10 @@ data(){
   },
   fetchUser(ada){
     getuser(ada).then(value => {
-      console.log(value)   
+      console.log("0"+value)   
       this.walluser.userName = value.data[0].userName
       this.walluser.userSignature = value.data[0].userSignature
-      console.log(this.walluser.userName)
+      console.log("1"+this.walluser.userName)
     }
     )
   },
@@ -387,7 +284,8 @@ data(){
     this.visible=false
   }
 }
-}
+  }
+
 </script>
 
 
