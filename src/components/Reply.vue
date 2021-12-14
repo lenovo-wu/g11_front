@@ -16,7 +16,7 @@
                     label="评论内容">
                 </el-table-column>
                 <el-table-column
-                    prop="replyUserid"
+                    prop="replyUsername"
                     label="评论作者">
                 </el-table-column>       
             </el-table>
@@ -70,7 +70,7 @@
 
 
 <script>
-
+import{getuser} from '@/api/user'
 import { mapGetters } from 'vuex'
 import{ insertReply } from '@/api/reply/reply'
 import{ loadReplyByWallid } from '@/api/reply/reply'
@@ -107,7 +107,8 @@ export default{
             replyContent:'',
             replyUserid:'12121212',
             replyState:'正常',
-            replyId:1
+            replyId:1,
+            replyUsername:'sd好'
         },
         rules: {
           ttext: [
@@ -134,7 +135,7 @@ export default{
     loadAllreply(){
         this.reply.wallId=this.wallIdd
       loadReplyByWallid(this.currentpage,this.pagesize,this.search,this.wallIdd).then(res=>{
-        console.log('你好');   
+        console.log('你好');
         this.tableData =res.data.records
         this.page.total=res.data.total
 
@@ -147,14 +148,13 @@ export default{
     },
     cancle(){
         this.$emit('handleCancle')
-    },
+    }, 
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.reply.replyContent=this.ruleForm.ttext
             this.reply.replyUserid=this.user.userId
-            console.log(this.reply)
-            console.log("wallid"+this.reply.wallId)
+            this.reply.replyUsername=this.user.userName
             insertReply(this.reply)
             alert('评论成功!');
             this.loadAllreply()

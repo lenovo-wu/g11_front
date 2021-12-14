@@ -1,7 +1,7 @@
 // 表白墙展示组件
 <template>
-    <div class="wallformal" >
-        <div class="walltoname">{{"to: "+tableData[0].wallTo}}</div>
+    <div class="wallrank" >
+        <div class="walltoname">{{"🔥"+tableData[0].wallTalk+"  to: "+tableData[0].wallTo}}</div>
         <div class="walltime">发布时间: {{dayjs(tableData[0].wallTime).format('YYYY-MM-DD HH:mm')}}</div>
         <div class="walltitle">{{tableData[0].wallContenttitle}}</div>
         <div class="walltext">{{tableData[0].wallContent}}</div>
@@ -26,14 +26,13 @@
             >
           </el-pagination>
         </div>
-        <Selector @child-event='select' />
         <Reply :visible="visible" @handleCancle="handleCancle" @handleOk="handleOk" v-bind:wallIdd="wallId" />
     
     </div>
 </template>
 
 <style>
-.wallformal{
+.wallrank{
 width: 950px;
 height: 550px;
 background-color: #f3f3f3;
@@ -44,13 +43,13 @@ position: relative;
 top: -370px;
 }
 .bgbutton{
-  margin: 20px;
-  width: 20px;
-  height: 20px;
+  margin: 10px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   vertical-align: top;
   position: relative;
-  top: 50px;
+  top: -50px;
 }
 .btgood{
   z-index: 200;
@@ -174,14 +173,12 @@ import {update} from '@/api/adminWall/updatewall'
 import{getInfo} from '@/api/user'
 import{getuser} from '@/api/user'
 import { mapGetters } from 'vuex'
-import {loadAllwall} from '@/api/wall/loadwall'
-import {loadAllwallSix} from '@/api/wall/loadwall'
-import {loadAllwallNine} from '@/api/wall/loadwall'
-import Selector from './Selector.vue'
+import {loadAllwallHot} from '@/api/wall/loadwall'
+
 import Reply from './Reply.vue'
 export default{
-  components: { Selector, Reply },
-    name: "Wallformal",
+  components: {  Reply },
+    name: "Wallrank",
 data(){
     return{
       visible: false,
@@ -224,51 +221,7 @@ data(){
   },
   methods:{
     loadAllwall(){
-      loadAllwall(this.currentpage,this.pagesize,this.search).then(res=>{
-        console.log(res);   
-        this.tableData =res.data.records
-        this.page.total=res.data.total
-
-        this.wallId=res.data.records[0].wallId
-        this.collection.collectionWallid=res.data.records[0].wallId
-        this.choose.chooseWallid=res.data.records[0].wallId
-
-        console.log(this.wallId);
-        console.log(this.collectionWallid);
-
-        this.auserId=res.data.records[0].wallUserid
-        this.collection.collectionUserid=this.user.userId
-        this.choose.chooseUserid=this.user.userId
-        this.choose.chooseBeuserid=res.data.records[0].wallUserid
-        console.log(this.auserId)
-        this.fetchUser(res.data.records[0].wallUserid)
-      })
-      
-    },
-    loadAllwallSix(){
-      loadAllwallSix(this.currentpage,this.pagesize,this.search).then(res=>{
-        console.log(res);   
-        this.tableData =res.data.records
-        this.page.total=res.data.total
-
-        this.wallId=res.data.records[0].wallId
-        this.collection.collectionWallid=res.data.records[0].wallId
-        this.choose.chooseWallid=res.data.records[0].wallId
-
-        console.log(this.wallId);
-        console.log(this.collectionWallid);
-
-        this.auserId=res.data.records[0].wallUserid
-        this.collection.collectionUserid=this.user.userId
-        this.choose.chooseUserid=this.user.userId
-        this.choose.chooseBeuserid=res.data.records[0].wallUserid
-        console.log(this.auserId)
-        this.fetchUser(res.data.records[0].wallUserid)
-      })
-      
-    },
-    loadAllwallNine(){
-      loadAllwallNine(this.currentpage,this.pagesize,this.search).then(res=>{
+      loadAllwallHot(this.currentpage,this.pagesize,this.search).then(res=>{
         console.log(res);   
         this.tableData =res.data.records
         this.page.total=res.data.total
@@ -291,32 +244,10 @@ data(){
     },
     handleCurrentChange(pageNum){  //改变当前页码触发
       this.currentpage=pageNum
-      if(this.orderKey==3)
-        this.loadAllwall()
-      else if(this.orderKey==6)
-        this.loadAllwallSix()
-      else if(this.orderKey==9)
-        this.loadAllwallNine()
-      else
-        console.log("wrong")
+      this.loadAllwall()
       
     },
-    select(data){
-      console.log(data)
-      if(data==3){
-        this.orderKey=3
-        this.loadAllwall()
-      }
-      else if(data==6){
-        this.orderKey=6
-        this.loadAllwallSix()
-      }
-      else{
-        this.orderKey=9
-        this.loadAllwallNine()
-      }
-        
-    },
+    
     goodopen() {
         this.tableData[0].wallGood++
         this.tableData[0].wallTalk++

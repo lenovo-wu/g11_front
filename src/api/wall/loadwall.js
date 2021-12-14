@@ -21,3 +21,10 @@ export function loadAllwallNine(pageNum,pageSize,search){
         params: {pageNum:pageNum, pageSize:pageSize, search:search}
     })
 }
+export function loadAllwallHot(pageNum,pageSize,search){
+    return request({
+        url:'/wall/findHotWallPage',
+        method: 'get',
+        params: {pageNum:pageNum, pageSize:pageSize, search:search}
+    })
+}

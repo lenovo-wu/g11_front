@@ -6,11 +6,10 @@
         <div style="width: 100px">
         <el-dropdown>
             <span class="el-dropdown-link">
-            管理员<i class="el-icon-arrow-down el-icon--right"></i>
+            {{user.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>个人信息</el-dropdown-item>
-                <el-dropdown-item>退出系统</el-dropdown-item>
+                <el-dropdown-item @click.native="inhome">退出系统</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
         </div>
@@ -30,9 +29,17 @@
 
 
 <script>
-
+import { mapGetters } from 'vuex'
 export default{
-    name: "Header"
+    name: "Header",
+    computed: {
+    ...mapGetters(['token', 'user'])
+    },
+    methods:{
+    inhome(){
+      this.$router.push({path:'/'})
+    },
+    }
 }
 </script>
 
