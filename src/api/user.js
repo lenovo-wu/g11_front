@@ -13,6 +13,15 @@ export function updatepass(date) {
   })
 }
 
+//用户主页修改个性签名
+export function updatesign(date) {
+  return request({
+    url: 'user/updatesign',
+    method: 'put',
+    data: date
+  })
+}
+
 // 用户主页表白墙
 export function getInfoByName(username, page, size) {
   return request({

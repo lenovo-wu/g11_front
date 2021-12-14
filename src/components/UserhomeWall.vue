@@ -36,6 +36,9 @@
                                     <el-form-item label="邮箱">
                                       <span>{{ user.userId}}@stu.zucc.edu.cn</span>
                                     </el-form-item>
+                                    <el-form-item label="个性签名">
+                                      <span>{{ user.userSignature}}</span>
+                                    </el-form-item>
                               </el-form>
                           </template>
                         </el-table-column>
@@ -55,6 +58,18 @@
                 </el-form>
               </el-tab-pane>
 
+              <el-tab-pane label="个性签名">
+                <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+                  <el-form-item label="个性签名" prop="userSignature">
+                    <el-input v-model="ruleForm2.userSignature"></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button type="primary" @click="submitForm2('ruleForm2')">提交</el-button>
+                    <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                  </el-form-item>
+                </el-form>
+              </el-tab-pane>
+
               <el-tab-pane label="我的表白墙" >
                 <template>
                   <el-card class="box-card content" shadow="never">
@@ -62,7 +77,7 @@
                       <span>我的表白墙</span>
                     </div>
                     <div v-if="topics.length===0">
-                      暂无话题
+                      暂无表白墙
                     </div>
                     <div v-else class="topicUser-info">
                       <article v-for="(item, index) in topics" :key="index" class="media">
@@ -107,7 +122,7 @@
                       <span>我的评论</span>
                     </div>
                     <div v-if="topics2.length===0">
-                      暂无话题
+                      暂无评论
                     </div>
                     <div v-else class="topicUser2-info">
                       <article v-for="(item2, index) in topics2" :key="index" class="media">
@@ -121,6 +136,15 @@
                               </span>
                             </div>
                           </nav>
+                        </div>
+                        <div v-if="token" class="media-right">
+                          <div v-if="topicUser.username === user.username" class="level">                       
+                            <div class="level-item">
+                              <a @click="handleDeleteReply(item2.id)">
+                                <span class="tag is-danger">删除</span>
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </article>
                     </div>
@@ -143,7 +167,7 @@
                       <span>我的认领</span>
                     </div>
                     <div v-if="topics3.length===0">
-                      暂无话题
+                      暂无认领
                     </div>
                     <div v-else class="topicUser3-info">
                       <article v-for="(item3, index) in topics3" :key="index" class="media">
@@ -157,6 +181,15 @@
                               </span>
                             </div>
                           </nav>
+                        </div>
+                        <div v-if="token" class="media-right">
+                          <div v-if="topicUser.username === user.username" class="level">                       
+                            <div class="level-item">
+                              <a @click="handleDeletechoose(item3.chooseId)">
+                                <span class="tag is-danger">删除</span>
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </article>
                     </div>
@@ -180,7 +213,7 @@
                       <span>认领我的</span>
                     </div>
                     <div v-if="topics4.length===0">
-                      暂无话题
+                      暂无认领
                     </div>
                     <div v-else class="topicUser4-info">
                       <article v-for="(item4, index) in topics4" :key="index" class="media">
@@ -194,6 +227,15 @@
                               </span>
                             </div>
                           </nav>
+                        </div>
+                        <div v-if="token" class="media-right">
+                          <div v-if="topicUser.username === user.username" class="level">                       
+                            <div class="level-item">
+                              <a @click="handleDeletechoose(item4.chooseId)">
+                                <span class="tag is-danger">删除</span>
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </article>
                     </div>
@@ -217,7 +259,7 @@
                       <span>我的收藏</span>
                     </div>
                     <div v-if="topics5.length===0">
-                      暂无话题
+                      暂无收藏
                     </div>
                     <div v-else class="topicUser5-info">
                       <article v-for="(item5, index) in topics5" :key="index" class="media">
@@ -230,6 +272,15 @@
                               </span>
                             </div>
                           </nav>
+                        </div>
+                        <div v-if="token" class="media-right">
+                          <div v-if="topicUser.username === user.username" class="level">                       
+                            <div class="level-item">
+                              <a @click="handleDeleteColl(item5.id)">
+                                <span class="tag is-danger">删除</span>
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </article>
                     </div>
@@ -260,10 +311,13 @@ import { getInfoByNameForChoose } from '@/api/user'
 import { getInfoByNameForBeChoose } from '@/api/user'
 import { getInfoByNameForColl } from '@/api/user'
 import { updatepass } from '@/api/user'
+import { updatesign } from '@/api/user'
 import pagination from '@/components/Pagination'
 import { deleteTopic } from '@/api/user'
 import { deletewall } from '@/api/adminWall/deletewall'
-
+import { deletereply } from '@/api/reply/deletereply'
+import { deletecoll } from '@/api/collection/deletecoll'
+import { deletechoose } from '@/api/choose/deletechoose'
 export default {
 components: { pagination },
   name: "whitewall",
@@ -306,7 +360,23 @@ components: { pagination },
             { validator: validatePass, trigger: 'blur' }
           ],
         },
-      
+      //个性签名返回数据
+      ruleForm2:{
+        userId:this.$route.params.username,
+        userSignature:''
+      },
+      rules2:{
+        sign: [
+          { required: true, message: '请输入个性签名', trigger: 'blur' },
+          {
+            min: 2,
+            max: 100,
+            message: '请输入正确格式的昵称',
+            trigger: 'blur'
+          }
+        ],
+      },
+
       topicUser: {},
       topics: {},
       page: {
@@ -358,14 +428,8 @@ components: { pagination },
   computed: {
   ...mapGetters(['token', 'user'])
   },
+  
   created(){
-    //this.fetchUserById()
-    //this.fetchUserById2()
-    //this.fetchUserById3()
-    //this.fetchUserById4()
-    //this.fetchUserById5()
-  },
-  mounted(){
     this.fetchUserById()
     this.fetchUserById2()
     this.fetchUserById3()
@@ -384,7 +448,7 @@ components: { pagination },
           if (valid) {
             alert('submit!');
             updatepass(this.ruleForm).then(res => {
-
+              this.$router.go(0)
             })
           } else {
             console.log('error submit!!');
@@ -392,12 +456,33 @@ components: { pagination },
           }
         });
       },
+      
+
     //修改密码点击重置
     resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-    
-    
+    //修改个性签名
+    submitForm2(formName2) {
+        this.$refs[formName2].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+            updatesign(this.ruleForm2).then(res => {
+              this.$router.go(0)
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+    //修改个性签名点击重置
+    resetForm(formName2) {
+        this.$refs[formName2].resetFields();
+      },
+
+
+
     fetchUserById() {
       getInfoByName(this.$route.params.username, this.page.current, this.page.size).then((res) => {
         const { data } = res
@@ -455,9 +540,37 @@ components: { pagination },
         alert(message)
 
         if (code === 200) {
-          setTimeout(() => {
-            this.$router.push({ path: '/' })
-          }, 500)
+          this.$router.go(0)
+        }
+      })
+    },
+    handleDeleteReply(id) {
+      deletereply(id).then(value => {
+        const { code, message } = value
+        alert(message)
+
+        if (code === 200) {
+          this.$router.go(0)
+        }
+      })
+    },
+    handleDeleteColl(id) {
+      deletecoll(id).then(value => {
+        const { code, message } = value
+        alert(message)
+
+        if (code === 200) {
+          this.$router.go(0)
+        }
+      })
+    },
+    handleDeletechoose(id) {
+      deletechoose(id).then(value => {
+        const { code, message } = value
+        alert(message)
+
+        if (code === 200) {
+          this.$router.go(0)
         }
       })
     }
