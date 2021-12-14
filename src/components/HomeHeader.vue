@@ -55,7 +55,15 @@ export default {
   },
   methods:{
     inadmin(){
-      this.$router.push({path:'/Admin'})
+      if(this.user.userJurisdiction=="管理员"){
+        console.log(this.user.userState)
+        this.$router.push({path:'/Admin'})
+        alert('您好！管理员 '+this.user.userName);
+      }
+      else{
+        alert('你不是管理员!');
+        console.log(this.user.userJurisdiction)
+      }
     },
     infeedback(){
       this.$router.push({path:'/Feedback'})
