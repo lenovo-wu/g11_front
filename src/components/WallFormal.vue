@@ -160,7 +160,7 @@ top: -370px;
 }
 .pagetransform{
   position: relative;
-  bottom: 40px;
+  bottom: 10px;
   left: 200px;
 }
 

@@ -1,4 +1,4 @@
-// 选择器组件，用于选择排序方式，功能暂未实现
+// 选择器组件，用于选择排序方式
 <template>
   <el-radio-group v-model="radio" class="selector" @change="agreeChange">
     <el-radio :label="3" >按时间</el-radio>
@@ -10,7 +10,7 @@
   .selector{
     position: relative;
     bottom: 540px;
-    left: 150px;
+    left: 350px;
   }
 </style>
 <script>
