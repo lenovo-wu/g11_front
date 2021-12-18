@@ -9,55 +9,25 @@
             注册
           </div>
           <div>
-            <el-form
-              ref="ruleForm"
-              v-loading="loading"
-              :model="ruleForm"
-              status-icon
-              :rules="rules"
-              label-width="100px"
-              class="demo-ruleForm"
-            >
-
+            <el-form ref="ruleForm" v-loading="loading" :model="ruleForm" status-icon :rules="rules"  label-width="100px"  class="demo-ruleForm" >
               <el-form-item label="学号" prop="stunum">
                 <el-input v-model="ruleForm.stunum"></el-input>
               </el-form-item>
-
-              
-  
               <el-form-item label="密码" prop="pass">
-                <el-input
-                  v-model="ruleForm.pass"
-                  type="password"
-                  autocomplete="off"
-                />
+                <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
               </el-form-item>
-  
               <el-form-item label="确认密码" prop="checkPass">
-                <el-input
-                  v-model="ruleForm.checkPass"
-                  type="password"
-                  autocomplete="off"
-                />
+                <el-input v-model="ruleForm.checkPass" type="password" autocomplete="off" />
               </el-form-item>
-
               <el-form-item label="昵称" prop="othername">
                 <el-input v-model="ruleForm.othername"></el-input>
               </el-form-item>
-
               <el-form-item label="性别" prop="sex">
                 <el-radio-group v-model="ruleForm.sex">
                   <el-radio label="男"></el-radio>
                   <el-radio label="女"></el-radio>
                 </el-radio-group>
               </el-form-item>
-
-              <el-form-item label="验证码" prop="name">
-                <el-input
-                  v-model="ruleForm.name"
-                />
-              </el-form-item>
-
               <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="邮箱" prop="email">
                       <el-input v-model="ruleForm2.email" class="email" placeholder="邮箱"></el-input>
@@ -68,16 +38,10 @@
                         <span v-show="show">发送验证码</span>
                         <span v-show="!show" class="count">{{count}} s</span>
                       </button>
-                    </el-form-item>
+                      </el-form-item>
                </el-form>
-             
-              
-  
               <el-form-item>
-                <el-button
-                  type="primary"
-                  @click="submitForm('ruleForm')"
-                >立即注册</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')" >立即注册</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
               </el-form-item>
             </el-form>
@@ -125,9 +89,7 @@
         callback()
       }
     }
-
-
-
+    //密码校验
       const validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))

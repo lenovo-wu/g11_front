@@ -31,7 +31,7 @@
                                       <span>{{ user.userState}}</span>
                                     </el-form-item>
                                     <el-form-item label="注册日期">
-                                      <span>{{ user.userRegistertime}}</span>
+                                      <span>{{ dayjs(user.userRegistertime).format('YYYY-MM-DD HH:mm')}}</span>
                                     </el-form-item>
                                     <el-form-item label="邮箱">
                                       <span>{{ user.userId}}@stu.zucc.edu.cn</span>
@@ -160,11 +160,11 @@
                   </el-card>
                 </template>
               </el-tab-pane>
-              <el-tab-pane label="我的认领">
+              <el-tab-pane label="我认领的">
                 <template>
                   <el-card class="box-card content" shadow="never">
                     <div slot="header" class="has-text-weight-bold">
-                      <span>我的认领</span>
+                      <span>我认领的</span>
                     </div>
                     <div v-if="topics3.length===0">
                       暂无认领
@@ -235,6 +235,11 @@
                                 <span class="tag is-danger">删除</span>
                               </a>
                             </div>
+                            <div class="level-item">
+                              <a @click="handleacceptchoose(item4.chooseId)">
+                                <span class="tag is-danger">接受</span>
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </article>
@@ -247,6 +252,52 @@
                       :page.sync="page4.current"
                       :limit.sync="page4.size"
                       @pagination="fetchUserById4"
+                    />
+                  </el-card>
+                </template>
+              </el-tab-pane>
+
+              <el-tab-pane label="我的认领">
+                <template>
+                  <el-card class="box-card content" shadow="never">
+                    <div slot="header" class="has-text-weight-bold">
+                      <span>我的认领</span>
+                    </div>
+                    <div v-if="topics6.length===0">
+                      暂无认领
+                    </div>
+                    <div v-else class="topicUser6-info">
+                      <article v-for="(item6, index) in topics6" :key="index" class="media">
+                        <div class="media-content">
+                          <nav class="level has-text-grey is-size-9">
+                            <div class="level-left" @click="showwall(item6.chooseWallid)">
+                              <span class="mr-1">
+                                表白墙:{{item6.chooseWallid}}<br>
+                                认领对象:{{item6.chooseBeuserid}}<br>
+                                认领时间:{{ dayjs(item6.chooseTime).format("YYYY/MM/DD HH:mm:ss") }}
+                              </span>
+                            </div>
+                          </nav>
+                        </div>
+                        <div v-if="token" class="media-right">
+                          <div v-if="topicUser.username === user.username" class="level">                       
+                            <div class="level-item">
+                              <a @click="handleDeletechoose(item6.chooseId)">
+                                <span class="tag is-danger">删除</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <!--分页-->
+                    <pagination
+                      v-show="page3.total > 50"
+                      class="mt-5"
+                      :total="page3.total"
+                      :page.sync="page3.current"
+                      :limit.sync="page3.size"
+                      @pagination="fetchUserById3"
                     />
                   </el-card>
                 </template>
@@ -308,6 +359,7 @@ import { mapGetters } from 'vuex'
 import { getInfoByName } from '@/api/user'
 import { getInfoByNameForReply } from '@/api/user'
 import { getInfoByNameForChoose } from '@/api/user'
+import { getInfoByNameForMyChoose } from '@/api/user'
 import { getInfoByNameForBeChoose } from '@/api/user'
 import { getInfoByNameForColl } from '@/api/user'
 import { updatepass } from '@/api/user'
@@ -318,6 +370,7 @@ import { deletewall } from '@/api/adminWall/deletewall'
 import { deletereply } from '@/api/reply/deletereply'
 import { deletecoll } from '@/api/collection/deletecoll'
 import { deletechoose } from '@/api/choose/deletechoose'
+import { acceptchoose } from '@/api/choose/acceptchoose'
 export default {
 components: { pagination },
   name: "whitewall",
@@ -350,6 +403,8 @@ components: { pagination },
         userId:this.$route.params.username,
         checkPass:''
         },
+
+      
       
       //校验密码规则
       rules: {
@@ -412,6 +467,13 @@ components: { pagination },
         size: 50,
         total: 0
       },
+      topicUser6: {},
+      topics6: {},
+      page6: {
+        current: 1,
+        size: 50,
+        total: 0
+      },
 
 
       collectionList:[],
@@ -435,6 +497,7 @@ components: { pagination },
     this.fetchUserById3()
     this.fetchUserById4()
     this.fetchUserById5()
+    this.fetchUserById6()
   },
   methods: {
     //点击收藏的表白墙然后跳转
@@ -523,6 +586,16 @@ components: { pagination },
         this.topics4 = data.topics.records
       })
     },
+    fetchUserById6() {
+      getInfoByNameForMyChoose(this.$route.params.username, this.page.current, this.page.size).then((res) => {
+        const { data } = res
+        this.topicUser6 = data.user
+        this.page6.current = data.topics.current
+        this.page6.size = data.topics.size
+        this.page6.total = data.topics.total
+        this.topics6 = data.topics.records
+      })
+    },
     fetchUserById5() {
       getInfoByNameForColl(this.$route.params.username, this.page.current, this.page.size).then((res) => {
         const { data } = res
@@ -573,8 +646,19 @@ components: { pagination },
           this.$router.go(0)
         }
       })
-    }
+    },
+    handleacceptchoose(id) {
+      console.log(id);
+      acceptchoose(id).then(value => {
+        console.log(value);
+        const { code, message } = value
+        alert(message)
 
+        if (code === 200) {
+          this.$router.go(0)
+        }
+      })
+    }
 
 
 }}

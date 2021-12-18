@@ -44,7 +44,7 @@ export function getInfoByNameForReply(username, page, size) {
     }
   })
 }
-// 用户主页我的认领
+// 用户主页我认领的
 export function getInfoByNameForChoose(username, page, size) {
   return request({
     url: 'user/choose/' + username,
@@ -59,6 +59,17 @@ export function getInfoByNameForChoose(username, page, size) {
 export function getInfoByNameForBeChoose(username, page, size) {
   return request({
     url: 'user/bechoose/' + username,
+    method: 'get',
+    params: {
+      pageNo: page,
+      size: size
+    }
+  })
+}
+// 用户主页我的认领
+export function getInfoByNameForMyChoose(username, page, size) {
+  return request({
+    url: 'user/mychoose/' + username,
     method: 'get',
     params: {
       pageNo: page,
