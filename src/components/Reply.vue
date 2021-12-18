@@ -3,7 +3,6 @@
     <div v-show="visible">
         <div class="reply">
             <el-table
-
                 :data="tableData"
                 :border="true" 
                 >
@@ -156,15 +155,15 @@ export default{
             this.reply.replyUserid=this.user.userId
             this.reply.replyUsername=this.user.userName
             insertReply(this.reply)
-            alert('评论成功!');
+            alert('评论成功!');       
             this.loadAllreply()
 
           } else {
             console.log('error submit!!');
             return false;
           }
-        });
-      },
+        });    
+    },
 }
 }
 </script>

@@ -100,9 +100,9 @@ export default{
             { required: true, message: '请输入对方昵称', trigger: 'blur' },
             { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
           ],
-          region: [
-            { required: true, message: '请选择是否隐藏自己的昵称', trigger: 'change' }
-          ],
+          // region: [
+          //   { required: true, message: '请选择是否隐藏自己的昵称', trigger: 'change' }
+          // ], 
           title: [
               { required: true, message: '请输入表白标题', trigger: 'blur' },
               { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }

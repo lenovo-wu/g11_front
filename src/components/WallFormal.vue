@@ -160,7 +160,7 @@ top: -370px;
 }
 .pagetransform{
   position: relative;
-  bottom: 40px;
+  bottom: 10px;
   left: 200px;
 }
 
@@ -348,12 +348,15 @@ data(){
     }
     )
       insertCollection(this.collection).then(value => {
+        if(value.code==200){
+        this.$alert('收藏成功！', '提示', {
+        confirmButtonText: '确定',
+      })         
+        }
         console.log(value)
       }
       )
-      this.$alert('收藏成功！', '提示', {
-        confirmButtonText: '确定',
-      })
+
     },
     chooseopen() {
       insertChoose(this.choose).then(value => {
