@@ -28,18 +28,18 @@
                   <el-radio label="女"></el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="邮箱" prop="email">
-                      <el-input v-model="ruleForm2.email" class="email" placeholder="邮箱"></el-input>
-                    </el-form-item>
+              
+                
+
                 <el-form-item label="验证码" prop="code" class="pr">
-                      <el-input prop="code" v-model="ruleForm2.code" placeholder="验证码"></el-input>
+                      <el-input prop="code" v-model="ruleForm.code" placeholder="验证码"></el-input>
                       <button @click="getCode()" class="code-btn" :disabled="!show">
                         <span v-show="show">发送验证码</span>
                         <span v-show="!show" class="count">{{count}} s</span>
                       </button>
-                      </el-form-item>
-               </el-form>
+                </el-form-item>
+
+               
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')" >立即注册</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -101,10 +101,6 @@
       }
       return {
 
-        ruleForm2: {
-        email: '',
-        code: ''
-      },
       show: true,
       count: '',
       timer: null,
@@ -124,7 +120,7 @@
           checkPass: '',
           othername: '',
           sex: '',
-          name: ''
+          code: ''
         },
         rules: {
             stunum:[
@@ -178,11 +174,10 @@
     methods: {
       getCode () {
       let _this = this
-      if (this.ruleForm2.email === '') {
-        _this.$message.error('请先输入邮箱再点击获取验证码')
+      if (this.ruleForm.stunum === '') {
+        _this.$message.error('请先输入学号再点击获取验证码')
       } else {
-        sessionStorage.setItem('testKey','这是一个测试的value值');
-        getCheckcode(this.ruleForm2).then(function (res) {
+        getCheckcode(this.ruleForm).then(function (res) {
           sessionStorage.setItem('checkCode', res.data)  // 这里我没用redis做缓存，用的浏览器sessionStorage+md5加密存下来的
         })
         // 验证码倒计时
@@ -206,9 +201,9 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.loading = true
-            console.log(this.ruleForm2.code);
+            console.log(this.ruleForm.code);
             console.log(sessionStorage.getItem("checkCode"));
-            if(this.ruleForm2.code!=sessionStorage.getItem("checkCode")){
+            if(this.ruleForm.code!=sessionStorage.getItem("checkCode")){
               alert("验证码错误");
               setTimeout(() => {
                     this.loading = false
