@@ -126,7 +126,7 @@
             stunum:[
               { required: true, message: '请输入您的学号', trigger: 'blur' },
               {
-                min: 8,
+                min: 4,
                 max: 8,
                 message:'您的城院学号',
                 trigger:'blur',
