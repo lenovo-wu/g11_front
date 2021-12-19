@@ -8,15 +8,34 @@
         <span class="spancss spancss4" @click="inrank">💖十大表白<i class="item"></i></span>
 
         <div v-if="token != null && token !== ''" class="spancss spancss">
+          <el-dropdown class="userhome-meum">
+            
+            <span class="el-dropdown-link">
+              {{user.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item >
+                <b-navbar-item tag="router-link" :to="{ path: `/${user.userId}/home` }" class="userhome-door">
+                个人中心
+                </b-navbar-item>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <b-navbar-item tag='a' @click='logout'>
+                退出登录
+                </b-navbar-item
+              ></el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <!--
           <b-navbar-item class='auserhome' tag="router-link" :to="{ path: `/${user.userId}/home` }">
           {{user.userName}}的个人中心
           </b-navbar-item>
           <b-navbar-item class='logout' tag='a' @click='logout'>
             退出登录
-          </b-navbar-item>
+          </b-navbar-item>-->
         </div>  
         
-        <div v-else class="spancss spancss"><span class="spancss spancss5" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span></div>
+        <div v-else class="spancss spancss"><span class="userhome-meum" @click="tologin">🔔{{billboard.userName+",请登录！"}}<i class="item"></i></span></div>
         
         
         <span class="spancss spancss6" @click="tohelp">帮助<i class="item"></i></span>
@@ -166,7 +185,7 @@ export default {
     position: absolute;
 }
 .spancss6{
-    left: 1200px;
+    left: 1100px;
     position: absolute;
 }
 .buttonbrowser{
@@ -175,4 +194,15 @@ export default {
     top: 230px;
     background-color: #dd3636;
 }
+.userhome-meum{
+  right:100px;
+  position: absolute;
+}
+.el-dropdown-link {
+    cursor: pointer;
+    color: white;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
 </style>

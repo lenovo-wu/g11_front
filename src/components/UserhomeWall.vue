@@ -85,7 +85,7 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left" @click="showwall(item.wallId)">
                               <span class="mr-1">
-                                表白墙标题：{{item.wallContenttitle}}<br>
+                                表白墙标题:{{item.wallContenttitle}}<br>
                                 发布于:{{ dayjs(item.wallTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
@@ -130,8 +130,8 @@
                           <nav class="level has-text-grey is-size-9">
                             <div class="level-left" @click="showwall(item2.wallId)">
                               <span class="mr-1">
-                                评论内容：{{item2.replyContent}}<br>
-                                评论表白墙：{{item2.wallId}}<br>
+                                评论内容:{{item2.replyContent}}<br>
+                                评论表白墙:{{item2.wallId}}<br>
                                 评论时间:{{ dayjs(item2.replyTime).format("YYYY/MM/DD HH:mm:ss") }}
                               </span>
                             </div>
