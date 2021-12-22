@@ -279,21 +279,26 @@ data(){
     }
     )
       insertCollection(this.collection).then(value => {
+        if(value.code==200){
+        this.$alert('收藏成功！', '提示', {
+        confirmButtonText: '确定',
+      })         
+        }
         console.log(value)
       }
       )
-      this.$alert('收藏成功！', '提示', {
-        confirmButtonText: '确定',
-      })
+
     },
     chooseopen() {
       insertChoose(this.choose).then(value => {
+        if(value.code==200){
+        this.$alert('认领成功！', '提示', {
+        confirmButtonText: '确定',
+      })         
+        }
         console.log(value)
       }
       )
-      this.$alert('认领成功！', '提示', {
-        confirmButtonText: '确定',
-      })
     },
     fetchUserinfo(){
     getInfo().then((value) => {
