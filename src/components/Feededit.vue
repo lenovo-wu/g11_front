@@ -28,7 +28,8 @@
 
 <style>
 .headimage{
-  margin: 50px;
+  /* margin: 50px; */
+  left: 50px;
   width: 100px;
   height: 100px;
   z-index: 200;
