@@ -27,16 +27,10 @@
         }
       },
      created(){
-        this.fetchBillboard()
+  
      },
      methods:{
-         async fetchBillboard(){
-         getBillboard().then((value) => {
-         const { data } = value;
-         this.billboard = data
-       }
-      )
-    },
+         
     inadmin(){
       this.$router.push({path:'/Admin'})
     }
