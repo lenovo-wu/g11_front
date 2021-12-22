@@ -28,7 +28,7 @@
               </div>
         
         </div>
-        <div> {{user.userId}}</div>
+ 
     </div>
 
 </template>
@@ -92,7 +92,7 @@ export default{
         },
         ruleForm: {
           name: '',
-          region: '',
+    
           title: '',
           ttext:'',
         },
