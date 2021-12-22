@@ -5,12 +5,12 @@
     <div style="background-color:#ffffff">
       <HomeHeader />
       <UserhomeWall />
-      <Footterbg />
+      <Footter />
     </div>
   </template>
 
   <script>
-      import Footterbg from '../components/footterbg.vue'
+      import Footter from '../components/footter.vue'
       import HomeHeader from '../components/HomeHeader.vue'
       import UserhomeWall from '../components/UserhomeWall.vue'
 
@@ -18,7 +18,7 @@
         components: { 
             HomeHeader,
             UserhomeWall,
-            Footterbg,
+            Footter,
          },
         name: 'Userhome',
         data(){

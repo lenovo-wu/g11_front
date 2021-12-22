@@ -42,6 +42,7 @@ box-shadow: 1px 1px 6px #000000;
 z-index: 100;
 position: relative;
 top: -370px;
+
 }
 .bgbutton{
   margin: 20px;
