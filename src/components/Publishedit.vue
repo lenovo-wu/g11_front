@@ -8,12 +8,12 @@
                 <el-form-item label="对方昵称" prop="name">
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
-                <el-form-item label="隐藏昵称" prop="region">
+                <!-- <el-form-item label="隐藏昵称" prop="region">
                   <el-select v-model="ruleForm.region" placeholder="是否隐藏昵称">
                     <el-option label="是" value="yes"></el-option>
                     <el-option label="否" value="no"></el-option>
                   </el-select>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="表白标题" prop="title">
                   <el-input v-model="ruleForm.title"></el-input>
                 </el-form-item>
@@ -28,14 +28,15 @@
               </div>
         
         </div>
-        <div> {{user.userId}}</div>
+ 
     </div>
 
 </template>
 
 <style>
 .headimage{
-  margin: 50px;
+  /* margin: 50px; */
+  left: 50px;
   width: 100px;
   height: 100px;
   z-index: 200;
@@ -91,7 +92,7 @@ export default{
         },
         ruleForm: {
           name: '',
-          region: '',
+    
           title: '',
           ttext:'',
         },
