@@ -3,20 +3,20 @@
   <div style="background-color:#f5f5f5">
     <HomeHeader />
     <WallFormal />
-    <Footter />
+    <Footterbg />
 
     
   </div>
 </template>
 <script>
-import Footter from '../components/footter.vue'
+import Footterbg from '../components/footterbg.vue'
 import HomeHeader from '../components/HomeHeader.vue'
 import WallFormal from '../components/WallFormal.vue'
 export default {
   components: { 
     HomeHeader,
     WallFormal,
-    Footter,
+    Footterbg,
      },
   name: 'Browser',
   data(){

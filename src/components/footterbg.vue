@@ -28,13 +28,15 @@ export default {
 <style >
 .footterbg{
   width: 1200px;
-  height: 500px;
-  background-color: #e9e9e9;
+  height: 840px;
+  background-image: url(../assets/css/rainylove.png);
   /* background-repeat:repeat-x; */
+  background-position: 50%;
   margin:0 auto;
-  position: absolute;
-  top: 540px;
-  left: 160px;
+  position: relative;
+  top: -560px;
+  z-index: 10;
+
 }
 
 </style>
