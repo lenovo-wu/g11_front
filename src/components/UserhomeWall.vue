@@ -160,11 +160,11 @@
                   </el-card>
                 </template>
               </el-tab-pane>
-              <el-tab-pane label="我认领的">
+              <el-tab-pane label="我的认领">
                 <template>
                   <el-card class="box-card content" shadow="never">
                     <div slot="header" class="has-text-weight-bold">
-                      <span>我认领的</span>
+                      <span>我的认领</span>
                     </div>
                     <div v-if="topics3.length===0">
                       暂无认领
@@ -206,11 +206,11 @@
                 </template>
               </el-tab-pane>
 
-              <el-tab-pane label="认领我的">
+              <el-tab-pane label="被认领">
                 <template>
                   <el-card class="box-card content" shadow="never">
                     <div slot="header" class="has-text-weight-bold">
-                      <span>认领我的</span>
+                      <span>被认领</span>
                     </div>
                     <div v-if="topics4.length===0">
                       暂无认领
@@ -257,11 +257,11 @@
                 </template>
               </el-tab-pane>
 
-              <el-tab-pane label="我的认领">
+              <el-tab-pane label="成功认领">
                 <template>
                   <el-card class="box-card content" shadow="never">
                     <div slot="header" class="has-text-weight-bold">
-                      <span>我的认领</span>
+                      <span>成功认领</span>
                     </div>
                     <div v-if="topics6.length===0">
                       暂无认领
