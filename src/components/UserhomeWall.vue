@@ -509,12 +509,12 @@ components: { pagination },
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            alert('修改成功!');
             updatepass(this.ruleForm).then(res => {
               this.$router.go(0)
             })
           } else {
-            console.log('error submit!!');
+            console.log('修改失败!!');
             return false;
           }
         });
@@ -529,12 +529,12 @@ components: { pagination },
     submitForm2(formName2) {
         this.$refs[formName2].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            alert('修改成功!');
             updatesign(this.ruleForm2).then(res => {
               this.$router.go(0)
             })
           } else {
-            console.log('error submit!!');
+            console.log('修改失败!!');
             return false;
           }
         });
