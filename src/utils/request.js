@@ -7,7 +7,7 @@ import { getToken } from '@/utils/auth'
 // 1.创建axios实例
 const service = axios.create({
   // 公共接口--这里注意后面会讲,url = base url + request url
-  baseURL: process.env.VUE_APP_SERVER_URL,
+  baseURL:'http://47.98.100.250:8001',
 
   // baseURL: 'https://api.example.com',
   // 超时时间 单位是ms，这里设置了5s的超时时间
