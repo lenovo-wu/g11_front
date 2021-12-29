@@ -36,7 +36,7 @@ export function getInfoByName(username, page, size) {
 // 用户主页评论
 export function getInfoByNameForReply(username, page, size) {
   return request({
-    url: 'user/reply/' + username,
+    url: 'reply/reply/' + username,
     method: 'get',
     params: {
       pageNo: page,
@@ -47,7 +47,7 @@ export function getInfoByNameForReply(username, page, size) {
 // 用户主页我认领的
 export function getInfoByNameForChoose(username, page, size) {
   return request({
-    url: 'user/choose/' + username,
+    url: 'choose/choose/' + username,
     method: 'get',
     params: {
       pageNo: page,
@@ -58,7 +58,7 @@ export function getInfoByNameForChoose(username, page, size) {
 // 用户主页认领我的
 export function getInfoByNameForBeChoose(username, page, size) {
   return request({
-    url: 'user/bechoose/' + username,
+    url: 'choose/bechoose/' + username,
     method: 'get',
     params: {
       pageNo: page,
@@ -69,7 +69,7 @@ export function getInfoByNameForBeChoose(username, page, size) {
 // 用户主页我的认领
 export function getInfoByNameForMyChoose(username, page, size) {
   return request({
-    url: 'user/mychoose/' + username,
+    url: 'choose/mychoose/' + username,
     method: 'get',
     params: {
       pageNo: page,
@@ -80,7 +80,7 @@ export function getInfoByNameForMyChoose(username, page, size) {
 // 用户主页我的收藏
 export function getInfoByNameForColl(username, page, size) {
   return request({
-    url: 'user/coll/' + username,
+    url: 'collection/coll/' + username,
     method: 'get',
     params: {
       pageNo: page,
@@ -90,10 +90,9 @@ export function getInfoByNameForColl(username, page, size) {
 }
 
 //提取特定wall
-
 export function loadOneWall(wallid) {
   return request({
-    url: 'user/selectonecoll/'+wallid,
+    url: 'wall/selectonecoll/'+wallid,
     method: 'get',
   })
 }
