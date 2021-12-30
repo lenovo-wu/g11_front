@@ -272,17 +272,17 @@ data(){
       })
     },
     collectionopen() {
-      this.tableData[0].wallTalk=this.tableData[0].wallTalk+2
-      this.tableData[0].wallCollection++
-      update(this.tableData[0]).then(value => {
-      console.log(value)
-    }
-    )
       insertCollection(this.collection).then(value => {
         if(value.code==200){
-        this.$alert('收藏成功！', '提示', {
-        confirmButtonText: '确定',
-      })         
+            this.tableData[0].wallTalk=this.tableData[0].wallTalk+2
+            this.tableData[0].wallCollection++
+            update(this.tableData[0]).then(value => {
+            console.log(value)
+          }
+          )
+          this.$alert('收藏成功！', '提示', {
+          confirmButtonText: '确定',
+        })         
         }
         console.log(value)
       }
